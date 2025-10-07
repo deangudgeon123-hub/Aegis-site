@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>AEGIS — Command Center</title>
+  <meta name="color-scheme" content="dark" />
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <header class="bar">
+    <div class="brand"><span class="shield"></span>AEGIS</div>
+    <nav>
+      <a href="#">Dashboard</a>
+      <a href="#guardrails">Guardrails</a>
+      <a href="#assets">Wallet</a>
+      <a href="#settings">Settings</a>
+    </nav>
+    <button id="connectBtn" class="wallet-btn">Connect Wallet</button>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="card">
+        <h3>Total Portfolio</h3>
+        <div class="stat-val">$124,237 <span class="delta up">+27.03%</span></div>
+        <canvas id="spark1" width="200" height="60"></canvas>
+      </div>
+      <div class="card">
+        <h3>Security Index</h3>
+        <div class="stat-val">98.7% <span class="delta up">+1.17%</span></div>
+        <canvas id="spark2" width="200" height="60"></canvas>
+      </div>
+      <div class="card">
+        <h3>24 h Activity</h3>
+        <div class="stat-val">7,307 <span class="delta down">+14.59%</span></div>
+        <canvas id="spark3" width="200" height="60"></canvas>
+      </div>
+    </section>
+
+    <h2 id="guardrails" class="section-title">AI Guardrail Dashboard</h2>
+    <div class="card table">
+      <div class="row">
+        <div>Spending Cap</div>
+        <div><span class="badge safe">Active</span></div>
+        <div>0.10 ETH / day</div>
+        <div>2 h ago</div>
+      </div>
+      <div class="row">
+        <div>Trusted AI Agent</div>
+        <div><span class="badge safe">Enabled</span></div>
+        <div>Addr 0x…A1F7</div>
+        <div>10 m ago</div>
+      </div>
+      <div class="row">
+        <div>Paused Mode</div>
+        <div><span class="badge lock">Off</span></div>
+        <div>—</div>
+        <div>—</div>
+      </div>
+      <div class="row">
+        <div>Unknown Payees</div>
+        <div><span class="badge warn">Alerting</span></div>
+        <div>Manual approve</div>
+        <div>5 m ago</div>
+      </div>
+    </div>
+
+    <h2 id="assets" class="section-title">Your Assets</h2>
+    <div class="card assets">
+      <div class="row">
+        <div class="coin"><span class="logo eth"></span>Ethereum</div>
+        <div>1.84 ETH</div>
+        <div>$6 190</div>
+        <div><span class="badge safe">AI-guarded</span></div>
+        <div><span class="pill">Agent: Core</span></div>
+      </div>
+      <div class="row">
+        <div class="coin"><span class="logo btc"></span>Bitcoin</div>
+        <div>0.42 BTC</div>
+        <div>$10 780</div>
+        <div><span class="badge warn">Warning</span></div>
+        <div><span class="pill">Agent: Scout</span></div>
+      </div>
+      <div class="row">
+        <div class="coin"><span class="logo usdc"></span>USDC</div>
+        <div>12 420</div>
+        <div>$12 420</div>
+        <div><span class="badge safe">AI-guarded</span></div>
+        <div><span class="pill">Agent: Core</span></div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <strong>AEGIS</strong> — Trust the Shield. © 2025 · <a href="#">Privacy</a> · <a href="#">Terms</a> · <a href="#">Security</a>
+  </footer>
+
+  <div id="overlay" class="overlay">
+    <div class="modal">
+      <h4>Connect a Wallet</h4>
+      <p>Select your wallet provider:</p>
+      <div class="wallet-grid">
+        <button class="wbtn" data-wallet="MetaMask"><span class="ico mfox">🦊</span>MetaMask</button>
+        <button class="wbtn" data-wallet="Coinbase"><span class="ico cbw">💎</span>Coinbase</button>
+        <button class="wbtn" data-wallet="Phantom"><span class="ico phan">👻</span>Phantom</button>
+        <button class="wbtn" data-wallet="WalletConnect"><span class="ico wcon">🌐</span>WalletConnect</button>
+      </div>
+      <div class="actions">
+        <button id="closeModal" class="ghost">Cancel</button>
+        <button id="learnMore" class="orange">Learn More</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
