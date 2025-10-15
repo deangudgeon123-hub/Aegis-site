@@ -14,7 +14,34 @@
     <a class="brand" href="#home">
       <img src="IMG_2391.png" alt="AEGIS logo" class="brand-mark" />
     </a>
-    <nav class="site-nav" aria-label="Primary">
+    <input
+      type="checkbox"
+      id="nav-toggle"
+      class="nav-toggle-input"
+      aria-hidden="true"
+      onchange="document.querySelector('label[for=nav-toggle]').setAttribute('aria-expanded', this.checked ? 'true' : 'false');"
+    />
+    <label
+      for="nav-toggle"
+      class="nav-toggle"
+      role="button"
+      tabindex="0"
+      aria-label="Toggle navigation"
+      aria-controls="primary-navigation"
+      aria-expanded="false"
+      aria-haspopup="true"
+      onkeydown="if(event.key==='Enter' || event.key===' '){ event.preventDefault(); this.click(); }"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </label>
+    <nav
+      class="site-nav"
+      id="primary-navigation"
+      aria-label="Primary"
+      onclick="if(event.target.classList.contains('nav-link')) { const toggle = document.getElementById('nav-toggle'); toggle.checked = false; document.querySelector('label[for=nav-toggle]').setAttribute('aria-expanded', 'false'); }"
+    >
       <a href="#home" class="nav-link">Home</a>
       <a href="#features" class="nav-link">Features</a>
       <a href="#about" class="nav-link">About</a>
@@ -36,7 +63,6 @@
         </div>
       </div>
       <div class="hero-visual">
-        <div class="orb glow"></div>
         <div class="grid-lines"></div>
       </div>
     </section>
