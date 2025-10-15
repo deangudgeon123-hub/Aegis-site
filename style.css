@@ -137,3 +137,21 @@ footer a{color:var(--muted)}
   .table .thead, .table .row{grid-template-columns: 1.6fr .9fr .9fr 1.1fr .9fr}
   .wordmark{letter-spacing:.06em}
 }
+/* Overlay animation */
+#overlay {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+#overlay.show {
+  display: flex;
+  opacity: 1;
+  position: fixed;
+  inset: 0;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(8px);
+  background: rgba(0,0,0,0.65);
+  z-index: 100;
+}
