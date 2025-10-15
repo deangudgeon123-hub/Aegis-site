@@ -67,23 +67,93 @@ section,
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0;
   text-decoration: none;
 }
 
 .brand-mark {
-  width: 60px;
-  height: 60px;
+  width: 78px;
+  height: 78px;
   border-radius: 12px;
-  object-fit: cover;
+  object-fit: contain;
   box-shadow: 0 0 20px rgba(216, 40, 59, 0.25);
+}
+
+.nav-toggle-input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  border: 0;
+  padding: 0;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  overflow: hidden;
+}
+
+.nav-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(24, 24, 28, 0.55);
+  cursor: pointer;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+  order: 2;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  border-radius: 999px;
+  background: var(--light);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.nav-toggle span + span {
+  margin-top: 5px;
+}
+
+.nav-toggle-input:checked + .nav-toggle {
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 0 18px rgba(216, 40, 59, 0.45);
+  background: rgba(32, 33, 39, 0.85);
+}
+
+.nav-toggle-input:checked + .nav-toggle span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.nav-toggle-input:checked + .nav-toggle span:nth-child(2) {
+  opacity: 0;
+}
+
+.nav-toggle-input:checked + .nav-toggle span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+.nav-toggle-input:checked ~ .site-nav {
+  display: flex;
+}
+
+.nav-toggle:hover,
+.nav-toggle:focus-visible {
+  border-color: rgba(255, 255, 255, 0.32);
+  box-shadow: 0 0 16px rgba(216, 40, 59, 0.35);
+  background: rgba(32, 33, 39, 0.75);
 }
 
 .site-nav {
   display: flex;
   align-items: center;
   gap: clamp(1.5rem, 4vw, 3rem);
-  margin-left: auto;
+  margin-left: clamp(1.5rem, 4vw, 3.5rem);
+  order: 3;
 }
 
 .nav-link {
@@ -121,6 +191,7 @@ section,
 }
 
 .prototype-cta {
+  order: 1;
   padding: 0.7rem 1.4rem;
   border-radius: 999px;
   border: 1px solid rgba(255, 255, 255, 0.16);
@@ -132,6 +203,8 @@ section,
   color: var(--light);
   box-shadow: 0 0 0 rgba(216, 40, 59, 0);
   transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  margin-left: auto;
+  margin-right: 0;
 }
 
 .prototype-cta:hover,
@@ -231,29 +304,6 @@ section,
   position: relative;
   z-index: 1;
   height: clamp(260px, 40vw, 420px);
-}
-
-.orb {
-  position: absolute;
-  inset: 0;
-  margin: auto;
-  width: 70%;
-  height: 70%;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, rgba(216, 40, 59, 0.7) 45%, rgba(8, 8, 9, 0.95) 100%);
-  filter: blur(0px);
-  animation: float 6s ease-in-out infinite;
-}
-
-.glow::after {
-  content: "";
-  position: absolute;
-  inset: -40px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(216, 40, 59, 0.35), transparent 70%);
-  filter: blur(20px);
-  opacity: 0.65;
-  animation: breathe 5s ease-in-out infinite;
 }
 
 .grid-lines {
@@ -507,8 +557,44 @@ section,
     order: -1;
   }
 
+  .nav-toggle {
+    display: inline-flex;
+    margin-left: auto;
+  }
+
+  .prototype-cta {
+    order: 4;
+    margin-left: 1.25rem;
+    margin-right: 0;
+  }
+
   .site-nav {
+    position: absolute;
+    top: calc(100% + 0.75rem);
+    right: clamp(1.5rem, 4vw, 4rem);
     display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 1.25rem 1.5rem;
+    background: rgba(12, 13, 17, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 20px;
+    width: min(280px, 85vw);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
+    margin-left: 0;
+    margin-right: 0;
+    order: 3;
+    z-index: 60;
+    backdrop-filter: blur(18px);
+  }
+
+  .site-nav .nav-link {
+    font-size: 1.05rem;
+    letter-spacing: 0.18em;
+    width: 100%;
+    padding: 0.35rem 0;
+    text-align: left;
   }
 }
 
