@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>AEGIS — Command Center</title>
+  <meta name="color-scheme" content="dark" />
+  <link rel="stylesheet" href="style.css" />
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <!-- Header -->
+  <header class="bar">
+    <div class="brand">
+      <img src="assets/aegis-logo.svg" alt="Aegis logo" class="logo" onerror="this.style.display='none'">
+      <span class="wordmark">AEGIS</span>
+    </div>
+    <nav class="nav">
+      <a href="#">Dashboard</a>
+      <a href="#guardrails">Guardrails</a>
+      <a href="#assets">Wallet</a>
+      <a href="#settings">Settings</a>
+    </nav>
+    <button id="connectBtn" class="wallet-btn">Connect Wallet</button>
+  </header>
+
+  <main>
+    <!-- Hero KPIs -->
+    <section class="hero grid-3">
+      <div class="card kpi">
+        <h3>Total Portfolio</h3>
+        <div class="stat-val">$124,237 <span class="delta up">+27.03%</span></div>
+        <canvas id="spark1" class="spark"></canvas>
+      </div>
+      <div class="card kpi">
+        <h3>Security Index</h3>
+        <div class="stat-val">98.7% <span class="delta up">+1.17%</span></div>
+        <canvas id="spark2" class="spark"></canvas>
+      </div>
+      <div class="card kpi">
+        <h3>24 h Activity</h3>
+        <div class="stat-val">7,307 <span class="delta down">+14.59%</span></div>
+        <canvas id="spark3" class="spark"></canvas>
+      </div>
+    </section>
+
+    <!-- Guardrails -->
+    <section id="guardrails">
+      <h2 class="section-title">AI Guardrail Dashboard</h2>
+      <div class="grid-4">
+        <div class="card guard">
+          <div class="guard-top">
+            <h4>Spending Cap</h4>
+            <span class="badge safe">Active</span>
+          </div>
+          <p class="muted">0.10 ETH per day</p>
+          <div class="meter"><span style="width: 35%"></span></div>
+          <div class="meta">Updated 2h ago</div>
+        </div>
+
+        <div class="card guard">
+          <div class="guard-top">
+            <h4>Trusted AI Agent</h4>
+            <span class="badge safe">Enabled</span>
+          </div>
+          <p class="muted">Addr 0x…A1F7</p>
+          <div class="meta">Updated 10m ago</div>
+        </div>
+
+        <div class="card guard">
+          <div class="guard-top">
+            <h4>Paused Mode</h4>
+            <span class="badge lock">Off</span>
+          </div>
+          <p class="muted">Manual activation only</p>
+          <button class="ghost small">Toggle</button>
+        </div>
+
+        <div class="card guard">
+          <div class="guard-top">
+            <h4>Unknown Payees</h4>
+            <span class="badge warn">Alerting</span>
+          </div>
+          <p class="muted">Require manual approve</p>
+          <div class="meta">Last alert 5m ago</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Assets -->
+    <section id="assets">
+      <h2 class="section-title">Your Assets</h2>
+      <div class="card table">
+        <div class="thead">
+          <div>Asset</div><div>Amount</div><div>USD</div><div>Status</div><div>Agent</div>
+        </div>
+        <div class="row">
+          <div class="coin"><span class="logo-dot eth"></span>Ethereum</div>
+          <div>1.84 ETH</div>
+          <div>$6,190</div>
+          <div><span class="badge safe">AI-guarded</span></div>
+          <div><span class="pill">Core</span></div>
+        </div>
+        <div class="row">
+          <div class="coin"><span class="logo-dot btc"></span>Bitcoin</div>
+          <div>0.42 BTC</div>
+          <div>$10,780</div>
+          <div><span class="badge warn">Warning</span></div>
+          <div><span class="pill">Scout</span></div>
+        </div>
+        <div class="row">
+          <div class="coin"><span class="logo-dot usdc"></span>USDC</div>
+          <div>12,420</div>
+          <div>$12,420</div>
+          <div><span class="badge safe">AI-guarded</span></div>
+          <div><span class="pill">Core</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Settings anchor (placeholder) -->
+    <section id="settings" class="visually-hidden" aria-hidden="true"></section>
+  </main>
+
+  <footer>
+    <strong>AEGIS</strong> — Trust the Shield. © 2025 · <a href="#">Privacy</a> · <a href="#">Terms</a> · <a href="#">Security</a>
+  </footer>
+
+  <!-- Wallet Modal -->
+  <div id="overlay" class="overlay" hidden>
+    <div class="modal">
+      <h4>Connect a Wallet</h4>
+      <p class="muted">Select your wallet provider</p>
+      <div class="wallet-grid">
+        <button class="wbtn" data-wallet="MetaMask"><span class="ico">🦊</span>MetaMask</button>
+        <button class="wbtn" data-wallet="Coinbase"><span class="ico">💎</span>Coinbase</button>
+        <button class="wbtn" data-wallet="Phantom"><span class="ico">👻</span>Phantom</button>
+        <button class="wbtn" data-wallet="WalletConnect"><span class="ico">🌐</span>WalletConnect</button>
+      </div>
+      <div class="actions">
+        <button id="closeModal" class="ghost">Cancel</button>
+        <a id="learnMore" class="link" href="#guardrails">Learn more</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
