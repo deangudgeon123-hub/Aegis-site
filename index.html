@@ -1,38 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <title>Aegis — Next-Gen AI Security</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=Rajdhani:wght@400;500;600&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <header class="site-header">
-      <div class="header-inner">
-        <a class="brand" href="#top" aria-label="Aegis home">
-          <img src="IMG_2391.png" alt="Aegis logo" class="brand-mark" />
-        </a>
-        <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false">
-          <span></span>
-          <span></span>
-          <span></span>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AEGIS | Trust the Shield</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="top-nav">
+        <div class="logo">
+            <img src="IMG_2391.png" alt="AEGIS Logo">
+        </div>
+        <button class="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
         </button>
-      </div>
+        <nav class="nav-menu" aria-label="Main navigation">
+            <a href="#hero" class="nav-link">Home</a>
+            <a href="#mission" class="nav-link">About</a>
+            <a href="https://deangudgeon123-hub.github.io/BLACK-HIVE/" target="_blank" rel="noopener" class="nav-link">Demo</a>
+            <a href="#waitlist" class="nav-link">Waitlist</a>
+        </nav>
     </header>
 
-    <main class="hero" id="top">
-      <div class="hero-card">
-        <p class="hero-eyebrow">Next-gen AI security</p>
-        <h1 class="hero-title">AI AND FINANCE ARE ALREADY HERE – THE QUESTION IS, WHO DO YOU TRUST?</h1>
-      </div>
+    <main>
+        <section id="hero" class="hero-section">
+            <div class="hero-card fade-in">
+                <p class="hero-kicker">NEXT-GEN AI SECURITY</p>
+                <h1 class="hero-title">AI and finance are already here — the question is, who do you trust?</h1>
+                <p class="hero-subtitle">Aegis is your AI shield for modern finance — built to protect, guide, and optimize your digital assets.</p>
+                <div class="hero-actions">
+                    <a class="btn primary fade-in-delay" href="https://deangudgeon123-hub.github.io/BLACK-HIVE/" target="_blank" rel="noopener">Access Demo</a>
+                    <a class="btn secondary fade-in-delay" href="#waitlist">Join Waitlist</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="mission" class="mission-section" data-animate>
+            <div class="container">
+                <h2>Our Mission</h2>
+                <p>Aegis represents trust in the age of automation. We combine AI precision with financial security to build tools that protect users from risk and empower smarter decisions.</p>
+            </div>
+        </section>
     </main>
 
-    <script src="script.js" defer></script>
-  </body>
+    <footer id="waitlist" class="site-footer">
+        <div class="container">
+            <p>© 2025 AEGIS — Trust the Shield.</p>
+            <div class="footer-links">
+                <a href="#" aria-label="Privacy Policy">Privacy</a>
+                <span>|</span>
+                <a href="#" aria-label="Terms of Service">Terms</a>
+                <span>|</span>
+                <a href="#" aria-label="Security">Security</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
 </html>
