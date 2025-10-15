@@ -10,12 +10,37 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 150);
 
     // Hamburger menu toggle
-    if (hamburger) {
+    const updateMenuState = (shouldShow) => {
+        if (!hamburger || !navMenu) return;
+        hamburger.classList.toggle('active', shouldShow);
+        hamburger.setAttribute('aria-expanded', String(shouldShow));
+        navMenu.classList.toggle('show', shouldShow);
+        navMenu.setAttribute('aria-hidden', String(!shouldShow));
+    };
+
+    const handleViewportChange = () => {
+        if (!navMenu) return;
+        if (window.innerWidth >= 768) {
+            navMenu.setAttribute('aria-hidden', 'false');
+            if (hamburger) {
+                hamburger.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
+            }
+            navMenu.classList.remove('show');
+        } else {
+            const isOpen = navMenu.classList.contains('show');
+            navMenu.setAttribute('aria-hidden', String(!isOpen));
+            if (hamburger && !isOpen) {
+                hamburger.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
+            }
+        }
+    };
+
+    if (hamburger && navMenu) {
         hamburger.addEventListener('click', () => {
             const isExpanded = hamburger.getAttribute('aria-expanded') === 'true';
-            hamburger.classList.toggle('active');
-            hamburger.setAttribute('aria-expanded', String(!isExpanded));
-            navMenu.classList.toggle('show');
+            updateMenuState(!isExpanded);
         });
     }
 
@@ -23,12 +48,13 @@ document.addEventListener('DOMContentLoaded', () => {
     navMenu?.querySelectorAll('a').forEach((link) => {
         link.addEventListener('click', () => {
             if (window.innerWidth < 768 && navMenu.classList.contains('show')) {
-                navMenu.classList.remove('show');
-                hamburger?.classList.remove('active');
-                hamburger?.setAttribute('aria-expanded', 'false');
+                updateMenuState(false);
             }
         });
     });
+
+    handleViewportChange();
+    window.addEventListener('resize', handleViewportChange);
 
     // Intersection Observer for scroll animations
     const observer = new IntersectionObserver((entries) => {
