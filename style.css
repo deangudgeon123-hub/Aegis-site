@@ -154,4 +154,33 @@ footer a{color:var(--muted)}
   backdrop-filter: blur(8px);
   background: rgba(0,0,0,0.65);
   z-index: 100;
+}/* Overlay fix */
+#overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75); /* solidify backdrop */
+  backdrop-filter: blur(10px);
+  z-index: 9999; /* sits above everything */
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+#overlay.show {
+  display: flex;
+  opacity: 1;
+}
+
+/* Modal card visual polish */
+#overlay .modal {
+  background: rgba(20, 20, 20, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.7);
+  padding: 2rem;
+  width: 90%;
+  max-width: 400px;
+  color: #eee;
 }
