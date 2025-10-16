@@ -317,14 +317,14 @@ body[data-page="contact"] .nav-link[data-nav="contact"]::after {
 /* Hero Section */
 
 .hero-section {
-    position: relative;
-    min-height: 100vh;
-    padding: 0 2rem 80px;
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
-    background: linear-gradient(150deg, #121212 0%, #151515 55%, rgba(199, 31, 31, 0.22) 100%);
-    overflow: hidden;
+  position: relative;
+  min-height: 100vh;
+  padding: 0 2rem 80px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  background: linear-gradient(160deg, #121212 0%, #141414 40%, rgba(199, 31, 31, 0.16) 100%);
+  overflow: hidden;
 }
 
 .hero-section::before {
@@ -350,7 +350,7 @@ body[data-page="contact"] .nav-link[data-nav="contact"]::after {
 .hero-card {
   position: relative;
   max-width: 720px;
-  background: rgba(18, 18, 18, 0.92); /* Matches hero-section tone */
+  background: rgba(18, 18, 18, 0.92); /* matched to hero-section tone */
   border: 1.5px solid rgba(199, 31, 31, 0.3);
   border-radius: 16px;
   padding: 3rem 3rem 2.5rem;
@@ -360,7 +360,7 @@ body[data-page="contact"] .nav-link[data-nav="contact"]::after {
     inset 0 0 18px rgba(199, 31, 31, 0.08),
     0 18px 35px rgba(0, 0, 0, 0.6);
   overflow: hidden;
-  margin-top: 6px;
+  margin-top: 6px; /* small breathing gap */
   mix-blend-mode: normal;
 }
 
@@ -370,12 +370,9 @@ body[data-page="contact"] .nav-link[data-nav="contact"]::after {
   inset: 0;
   border-radius: inherit;
   pointer-events: none;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.04),
-    rgba(255, 255, 255, 0) 55%
-  );
-  box-shadow: inset 0 0 12px rgba(199, 31, 31, 0.08);
+  background: rgba(0, 0, 0, 0.25); /* subtle overlay to even tone */
+  box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.4);
+  mix-blend-mode: normal;
 }
 
 .hero-kicker {
