@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const DESKTOP_BREAKPOINT = 1024;
     const hamburger = document.querySelector('.hamburger');
     const navMenu = document.querySelector('.nav-menu');
     const fadeElements = document.querySelectorAll('.fade-in, .fade-in-delay');
@@ -20,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const handleViewportChange = () => {
         if (!navMenu) return;
-        if (window.innerWidth >= 768) {
+        if (window.innerWidth >= DESKTOP_BREAKPOINT) {
             navMenu.setAttribute('aria-hidden', 'false');
             if (hamburger) {
                 hamburger.classList.remove('active');
@@ -47,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Close menu when clicking link on mobile
     navMenu?.querySelectorAll('a').forEach((link) => {
         link.addEventListener('click', () => {
-            if (window.innerWidth < 768 && navMenu.classList.contains('show')) {
+            if (window.innerWidth < DESKTOP_BREAKPOINT && navMenu.classList.contains('show')) {
                 updateMenuState(false);
             }
         });
