@@ -292,7 +292,7 @@ a {
 .hero-section {
     position: relative;
     min-height: 100vh;
-    padding: clamp(160px, 22vh, 230px) 2rem 80px;
+    padding: 4rem 2rem 80px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -527,6 +527,10 @@ a {
 }
 
 @media (max-width: 767px) {
+    .hero-section {
+        padding: 2rem 2rem 80px;
+    }
+
     .nav-inner {
         padding: clamp(0.6rem, 2.5vw, 0.85rem) clamp(1rem, 6vw, 1.5rem);
         gap: clamp(0.75rem, 4vw, 1.25rem);
