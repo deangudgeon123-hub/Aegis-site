@@ -5,6 +5,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const fadeElements = document.querySelectorAll('.fade-in, .fade-in-delay');
     const scrollElements = document.querySelectorAll('[data-animate]');
 
+    const setActiveNavigation = () => {
+        if (!navMenu) return;
+        const pageId = document.body?.dataset.page;
+        navMenu.querySelectorAll('.nav-link').forEach((link) => {
+            const navId = link.dataset.nav;
+            const isActive = !!pageId && navId === pageId;
+            link.classList.toggle('active', isActive);
+            if (isActive) {
+                link.setAttribute('aria-current', 'page');
+            } else {
+                link.removeAttribute('aria-current');
+            }
+        });
+    };
+
     // Initial fade-in for hero elements
     window.setTimeout(() => {
         fadeElements.forEach((el) => el.classList.add('visible'));
@@ -54,6 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    setActiveNavigation();
     handleViewportChange();
     window.addEventListener('resize', handleViewportChange);
 

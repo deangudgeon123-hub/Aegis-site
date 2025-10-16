@@ -283,6 +283,26 @@ a {
     transform: scaleX(1);
 }
 
+.nav-link.active,
+body[data-page="home"] .nav-link[data-nav="home"],
+body[data-page="about"] .nav-link[data-nav="about"],
+body[data-page="tech"] .nav-link[data-nav="tech"],
+body[data-page="security"] .nav-link[data-nav="security"],
+body[data-page="contact"] .nav-link[data-nav="contact"] {
+    color: var(--color-accent);
+    text-shadow: 0 0 12px rgba(199, 31, 31, 0.85);
+    box-shadow: 0 0 14px rgba(199, 31, 31, 0.45);
+}
+
+.nav-link.active::after,
+body[data-page="home"] .nav-link[data-nav="home"]::after,
+body[data-page="about"] .nav-link[data-nav="about"]::after,
+body[data-page="tech"] .nav-link[data-nav="tech"]::after,
+body[data-page="security"] .nav-link[data-nav="security"]::after,
+body[data-page="contact"] .nav-link[data-nav="contact"]::after {
+    transform: scaleX(1);
+}
+
 @keyframes headerFade {
     from {
         opacity: 0;
@@ -526,6 +546,207 @@ a {
     max-width: 640px;
 }
 
+/* Interior Pages */
+
+.page-header {
+    position: relative;
+    padding: clamp(8rem, 18vh, 11rem) 0 clamp(4rem, 12vh, 6rem);
+    background: linear-gradient(160deg, #111 0%, #151515 55%, rgba(199, 31, 31, 0.16) 100%);
+    overflow: hidden;
+}
+
+.page-header::before,
+.page-header::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.page-header::before {
+    background: radial-gradient(60% 55% at 20% 30%, rgba(199, 31, 31, 0.22), transparent 65%),
+                radial-gradient(45% 45% at 82% 18%, rgba(199, 31, 31, 0.18), transparent 70%);
+    mix-blend-mode: screen;
+}
+
+.page-header::after {
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.55), transparent 75%);
+    opacity: 0.65;
+}
+
+.page-header .container {
+    position: relative;
+    text-align: center;
+    z-index: 1;
+}
+
+.page-header h1 {
+    font-family: var(--font-primary);
+    font-size: clamp(2.3rem, 5vw, 3rem);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 1.25rem;
+}
+
+.page-header p {
+    max-width: 640px;
+    margin: 0 auto;
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.content-section {
+    padding: clamp(5rem, 12vh, 6.5rem) 0;
+}
+
+.container.narrow {
+    width: min(760px, 90vw);
+}
+
+.section-heading {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto 3rem;
+}
+
+.section-heading h2 {
+    font-family: var(--font-primary);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-size: clamp(1.9rem, 4vw, 2.5rem);
+    margin-bottom: 1rem;
+}
+
+.section-heading p {
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 1.05rem;
+}
+
+.content-card,
+.glow-card,
+.contact-form {
+    position: relative;
+    background: linear-gradient(160deg, rgba(18, 18, 18, 0.92) 0%, rgba(18, 18, 18, 0.78) 100%);
+    border-radius: 18px;
+    border: 1px solid rgba(199, 31, 31, 0.28);
+    box-shadow: 0 20px 44px -24px rgba(0, 0, 0, 0.85), inset 0 0 0 1px rgba(199, 31, 31, 0.12);
+    padding: clamp(2.5rem, 6vw, 3.25rem);
+    overflow: hidden;
+}
+
+.content-card::before,
+.glow-card::before,
+.contact-form::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(circle at top, rgba(199, 31, 31, 0.16), transparent 65%);
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.content-card h2,
+.glow-card h3 {
+    font-family: var(--font-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+}
+
+.content-card h2 {
+    font-size: clamp(1.7rem, 3.2vw, 2.2rem);
+    margin-bottom: 1.5rem;
+}
+
+.content-card p,
+.glow-card p {
+    font-size: 1.05rem;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.7;
+}
+
+.glow-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: clamp(1.5rem, 4vw, 2rem);
+}
+
+.glow-card h3 {
+    font-size: clamp(1.3rem, 3vw, 1.6rem);
+    margin-bottom: 1rem;
+}
+
+.bio-card {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.bio-subtitle {
+    font-size: 0.95rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.values-section .glow-card-grid {
+    margin-top: 2rem;
+}
+
+.values-section .glow-card {
+    text-align: left;
+}
+
+.contact-section .contact-form {
+    display: grid;
+    gap: 1.5rem;
+    padding: clamp(2.5rem, 6vw, 3rem);
+}
+
+.contact-form label {
+    font-family: var(--font-primary);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.65);
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    margin-top: 0.6rem;
+    padding: 0.95rem 1.15rem;
+    border-radius: 12px;
+    border: 1px solid rgba(199, 31, 31, 0.35);
+    background: rgba(12, 12, 12, 0.9);
+    color: var(--color-white);
+    font-size: 1rem;
+    font-family: var(--font-secondary);
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    outline: none;
+    border-color: rgba(199, 31, 31, 0.65);
+    box-shadow: 0 0 12px rgba(199, 31, 31, 0.6);
+    transform: translateY(-2px);
+}
+
+.contact-form textarea {
+    min-height: 160px;
+    resize: vertical;
+}
+
+.contact-form .btn {
+    justify-self: center;
+    min-width: 200px;
+}
+
+.contact-form small {
+    color: rgba(255, 255, 255, 0.55);
+}
+
 /* Footer */
 
 .site-footer {
@@ -671,6 +892,10 @@ a {
         padding: 0 2rem 80px;
     }
 
+    .page-header {
+        padding: clamp(7rem, 20vh, 9rem) 0 clamp(3rem, 10vh, 4.5rem);
+    }
+
     .nav-inner {
         padding: var(--nav-padding-block) clamp(1rem, 6vw, 1.5rem);
         gap: clamp(0.75rem, 4vw, 1.25rem);
@@ -702,6 +927,12 @@ a {
     .hero-actions {
         flex-direction: column;
     }
+
+    .content-card,
+    .glow-card,
+    .contact-form {
+        padding: clamp(2rem, 8vw, 2.4rem);
+    }
 }
 
 @media (max-width: 480px) {
@@ -715,6 +946,14 @@ a {
 
     .btn {
         width: 100%;
+    }
+
+    .page-header h1 {
+        font-size: clamp(2rem, 10vw, 2.4rem);
+    }
+
+    .page-header p {
+        font-size: 1rem;
     }
 
     .mission-section {
