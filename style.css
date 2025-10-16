@@ -330,23 +330,18 @@ a {
 .hero-card {
   position: relative;
   max-width: 720px;
-  background: linear-gradient(
-    160deg,
-    rgba(18, 18, 18, 0.98) 0%,
-    rgba(23, 0, 0, 0.96) 55%,
-    rgba(20, 0, 0, 0.94) 100%
-  );
-  border: 1.5px solid rgba(199, 31, 31, 0.45);
+  background: rgba(18, 18, 18, 0.92); /* Matches hero-section tone */
+  border: 1.5px solid rgba(199, 31, 31, 0.3);
   border-radius: 16px;
   padding: 3rem 3rem 2.5rem;
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(10px);
   box-shadow:
-    0 0 16px rgba(199, 31, 31, 0.22),
-    inset 0 0 18px rgba(199, 31, 31, 0.12),
-    0 22px 40px rgba(0, 0, 0, 0.65);
+    0 0 12px rgba(199, 31, 31, 0.12),
+    inset 0 0 18px rgba(199, 31, 31, 0.08),
+    0 18px 35px rgba(0, 0, 0, 0.6);
   overflow: hidden;
-  margin-top: 6px; /* small gap for separation */
-  mix-blend-mode: lighten;
+  margin-top: 6px;
+  mix-blend-mode: normal;
 }
 
 .hero-card::before {
