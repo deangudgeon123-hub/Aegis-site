@@ -350,6 +350,15 @@ body[data-page="contact"] .nav-link[data-nav="contact"]::after {
     mix-blend-mode: screen;
 }
 
+.hero-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: 0 auto;
+}
+
 .hero-card {
   position: relative;
   max-width: 720px;
