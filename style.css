@@ -322,7 +322,7 @@ body[data-page="contact"] .nav-link[data-nav="contact"]::after {
 .hero-section {
     position: relative;
     min-height: 100vh;
-    margin-top: 0; /* Explicitly eliminate any unintended gap below the header */
+    margin-top: -2px; /* Overlap header by 2px to erase the seam while keeping gradients aligned */
     padding: 0 2rem 80px;
     display: flex;
     align-items: flex-start;
@@ -395,7 +395,7 @@ body[data-page="contact"] .nav-link[data-nav="contact"]::after {
     inset 0 0 18px rgba(150, 23, 23, 0.055),
     0 18px 35px rgba(0, 0, 0, 0.6);
   overflow: hidden;
-  margin-top: 6px;
+  margin-top: calc(6px + 2px); /* Restore original visual spacing after lifting hero by 2px */
   mix-blend-mode: normal;
 }
 
@@ -442,7 +442,7 @@ body[data-page="contact"] .nav-link[data-nav="contact"]::after {
 }
 
 .core-pillars-section {
-    margin-top: 4rem;
+    margin-top: calc(4rem + 2px); /* Offset added to keep post-hero spacing consistent */
     margin-bottom: 4rem;
 }
 
