@@ -65,7 +65,7 @@ a {
     display: flex;
     justify-content: center;
     z-index: 1000;
-    background: linear-gradient(90deg, #121212 0%, #161616 45%, #181818 100%);
+    background: linear-gradient(150deg, #121212 0%, #151515 55%, rgba(150, 23, 23, 0.19) 100%); /* Match hero backdrop to avoid seam */
     box-shadow: inset 0 0 18px rgba(150, 23, 23, 0.13), inset 0 0 0 1px rgba(150, 23, 23, 0.085), 0 20px 36px -18px rgba(0, 0, 0, 0.8);
     animation: headerFade 0.5s ease-out forwards;
     opacity: 0;
@@ -86,10 +86,10 @@ a {
     position: absolute;
     left: 0;
     right: 0;
-    bottom: -26px;
-    height: 38px;
+    bottom: -14px;
+    height: 28px;
     pointer-events: none;
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0.55), transparent 70%);
+    background: linear-gradient(180deg, rgba(21, 21, 21, 0.85), rgba(21, 21, 21, 0) 70%); /* Soften drop shadow into hero tones */
     filter: blur(12px);
     opacity: 0.85;
 }
@@ -322,6 +322,7 @@ body[data-page="contact"] .nav-link[data-nav="contact"]::after {
 .hero-section {
     position: relative;
     min-height: 100vh;
+    margin-top: 0; /* Explicitly eliminate any unintended gap below the header */
     padding: 0 2rem 80px;
     display: flex;
     align-items: flex-start;
