@@ -770,6 +770,41 @@ body[data-page="contact"] .nav-link[data-nav="contact"]::after {
     color: rgba(255, 255, 255, 0.55);
 }
 
+/* Access Demo Page */
+
+.demo-access-section {
+    min-height: calc(100vh - var(--nav-height));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(5rem, 12vh, 6.5rem) 0;
+}
+
+.demo-access-section .container {
+    display: flex;
+    justify-content: center;
+}
+
+.demo-access-card {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.demo-access-card h1 {
+    font-family: var(--font-primary);
+    font-size: clamp(2.1rem, 5vw, 3rem);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+}
+
+.demo-access-card p {
+    font-size: 1.05rem;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.7;
+}
+
 /* Footer */
 
 .site-footer {
