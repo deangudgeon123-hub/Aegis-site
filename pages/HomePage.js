@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'https://esm.sh/react@18.2.0';
 import { gsap } from '../utils/gsap.js';
+import { html } from '../utils/html.js';
 
 export default function HomePage() {
     const scope = useRef(null);
@@ -31,8 +32,8 @@ export default function HomePage() {
         return () => ctx.revert();
     }, []);
 
-    return (
-        <div className="page home-page" ref={scope}>
+    return html`
+        <div className="page home-page" ref=${scope}>
             <section className="hero-section" id="hero">
                 <div className="hero-orbit" data-parallax-depth="0.45">
                     <span className="hero-glow" />
@@ -116,5 +117,5 @@ export default function HomePage() {
                 </div>
             </section>
         </div>
-    );
+    `;
 }

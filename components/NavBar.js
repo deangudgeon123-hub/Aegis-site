@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'https://esm.sh/react@18.2.0';
 import { gsap } from '../utils/gsap.js';
+import { html } from '../utils/html.js';
 
 const navLinks = [
     { href: 'index.html', label: 'Home', key: 'home' },
@@ -88,40 +89,42 @@ export function NavBar({ currentPage }) {
         }
     };
 
-    return (
-        <header className="top-nav" ref={navRef}>
+    return html`
+        <header className="top-nav" ref=${navRef}>
             <div className="nav-inner glass-elevated">
                 <a className="brand" href="index.html" aria-label="Aegis home">
                     <img src="IMG_2596.png" alt="AEGIS Logo" className="brand-mark" />
                     <span className="brand-type">AEGIS</span>
                 </a>
                 <button
-                    className={`nav-toggle ${isOpen ? 'is-open' : ''}`}
+                    className=${`nav-toggle ${isOpen ? 'is-open' : ''}`}
                     aria-label="Toggle navigation"
-                    aria-expanded={isOpen}
-                    onClick={toggleMenu}
+                    aria-expanded=${isOpen}
+                    onClick=${toggleMenu}
                 >
                     <span />
                     <span />
                 </button>
-                <nav className="nav-menu" ref={menuRef} aria-label="Primary">
-                    {navLinks.map(({ href, label, key }) => (
-                        <a
-                            key={key}
-                            className={`nav-link ${currentPage === key ? 'is-active' : ''}`}
-                            href={href}
-                            data-nav={key}
-                            onClick={(event) => handleNavInteraction(event, href)}
-                        >
-                            <span>{label}</span>
-                            <span className="link-indicator" />
-                        </a>
-                    ))}
-                    <a className="nav-cta" href="access-demo.html" onClick={(event) => handleNavInteraction(event, 'access-demo.html')}>
+                <nav className="nav-menu" ref=${menuRef} aria-label="Primary">
+                    ${navLinks.map(
+                        ({ href, label, key }) => html`
+                            <a
+                                key=${key}
+                                className=${`nav-link ${currentPage === key ? 'is-active' : ''}`}
+                                href=${href}
+                                data-nav=${key}
+                                onClick=${(event) => handleNavInteraction(event, href)}
+                            >
+                                <span>${label}</span>
+                                <span className="link-indicator" />
+                            </a>
+                        `,
+                    )}
+                    <a className="nav-cta" href="access-demo.html" onClick=${(event) => handleNavInteraction(event, 'access-demo.html')}>
                         <span>Access Demo</span>
                     </a>
                 </nav>
             </div>
         </header>
-    );
+    `;
 }

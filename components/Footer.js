@@ -1,12 +1,13 @@
 import React from 'https://esm.sh/react@18.2.0';
+import { html } from '../utils/html.js';
 
 export function Footer({ page }) {
     const footerCopy = page === 'home' ? '© 2025 Aegis - Trust the Shield.' : '© 2025 AEGIS — Trust the Shield.';
 
-    return (
+    return html`
         <footer className="site-footer glass-soft">
             <div className="footer-inner">
-                <p>{footerCopy}</p>
+                <p>${footerCopy}</p>
                 <div className="footer-links">
                     <a href="#" aria-label="Privacy Policy">
                         Privacy
@@ -22,5 +23,5 @@ export function Footer({ page }) {
                 </div>
             </div>
         </footer>
-    );
+    `;
 }

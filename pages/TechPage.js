@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'https://esm.sh/react@18.2.0';
 import { gsap } from '../utils/gsap.js';
+import { html } from '../utils/html.js';
 
 const capabilities = [
     {
@@ -46,8 +47,8 @@ export default function TechPage() {
         return () => ctx.revert();
     }, []);
 
-    return (
-        <div className="page tech-page" ref={scope}>
+    return html`
+        <div className="page tech-page" ref=${scope}>
             <section className="page-hero glass-elevated" data-parallax-depth="0.25">
                 <h1>Technology Blueprint</h1>
                 <p>
@@ -56,14 +57,16 @@ export default function TechPage() {
             </section>
             <section className="capability-section">
                 <div className="capability-grid">
-                    {capabilities.map(({ title, description }) => (
-                        <article key={title} className="capability-card glass-soft">
-                            <h3>{title}</h3>
-                            <p>{description}</p>
-                        </article>
-                    ))}
+                    ${capabilities.map(
+                        ({ title, description }) => html`
+                            <article key=${title} className="capability-card glass-soft">
+                                <h3>${title}</h3>
+                                <p>${description}</p>
+                            </article>
+                        `,
+                    )}
                 </div>
             </section>
         </div>
-    );
+    `;
 }

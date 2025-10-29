@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'https://esm.sh/react@18.2.0';
 import { gsap } from '../utils/gsap.js';
+import { html } from '../utils/html.js';
 
 export default function ContactPage() {
     const scope = useRef(null);
@@ -27,13 +28,13 @@ export default function ContactPage() {
         event.preventDefault();
     };
 
-    return (
-        <div className="page contact-page" ref={scope}>
+    return html`
+        <div className="page contact-page" ref=${scope}>
             <section className="contact-hero glass-elevated">
                 <p className="contact-intro">
                     Questions, ideas, or collaboration requests — send us a message below and we’ll get back shortly.
                 </p>
-                <form className="contact-form" action="#" method="post" onSubmit={handleSubmit} noValidate>
+                <form className="contact-form" action="#" method="post" onSubmit=${handleSubmit} noValidate>
                     <label htmlFor="contact-name">
                         Name
                         <input id="contact-name" type="text" name="name" placeholder="Your name" />
@@ -53,5 +54,5 @@ export default function ContactPage() {
                 </form>
             </section>
         </div>
-    );
+    `;
 }

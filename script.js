@@ -1,4 +1,3 @@
-import React from 'https://esm.sh/react@18.2.0';
 import { createRoot } from 'https://esm.sh/react-dom@18.2.0/client';
 import { NavBar } from './components/NavBar.js';
 import { Footer } from './components/Footer.js';
@@ -11,6 +10,7 @@ import DemoPage from './pages/DemoPage.js';
 import { createBackgroundScene } from './scenes/BackgroundScene.js';
 import { initParallaxLayers, initScrollHints } from './utils/interactions.js';
 import { ScrollTrigger } from './utils/gsap.js';
+import { html, Fragment } from './utils/html.js';
 
 const pageKey = document.body.dataset.page || 'home';
 
@@ -26,20 +26,20 @@ const pageRegistry = {
 const PageComponent = pageRegistry[pageKey] ?? HomePage;
 
 function App() {
-    return (
-        <>
-            <NavBar currentPage={pageKey} />
+    return html`
+        <${Fragment}>
+            <${NavBar} currentPage=${pageKey} />
             <main className="page-shell">
-                <PageComponent />
+                <${PageComponent} />
             </main>
-            <Footer page={pageKey} />
-        </>
-    );
+            <${Footer} page=${pageKey} />
+        <//>
+    `;
 }
 
 const rootElement = document.getElementById('app');
 const root = createRoot(rootElement);
-root.render(<App />);
+root.render(html`<${App} />`);
 
 let teardownParallax;
 
