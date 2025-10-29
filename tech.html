@@ -6,68 +6,12 @@
     <title>AEGIS | Technology</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-TenCNDtPug1JtmENcGukdxbYlR5c+3F4iAfDdc0AGJi/7luWGINuD/7++UZ5EKeosFVJeFt3PcT7PpShypQf4g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body data-page="tech">
-    <header class="top-nav">
-        <div class="nav-inner">
-            <div class="logo">
-                <img src="IMG_2596.png" alt="AEGIS Logo">
-            </div>
-            <button class="hamburger" aria-label="Toggle navigation" aria-expanded="false">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            <nav class="nav-menu" aria-label="Main navigation" aria-hidden="true">
-                <a href="index.html" class="nav-link" data-nav="home">Home</a>
-                <a href="tech.html" class="nav-link" data-nav="tech">Tech</a>
-                <a href="security.html" class="nav-link" data-nav="security">Security</a>
-                <a href="contact.html" class="nav-link" data-nav="contact">Contact</a>
-            </nav>
-        </div>
-    </header>
-
-    <main>
-        <section class="content-section" data-animate>
-            <div class="container">
-                <div class="section-heading">
-                    <h2>Technology Blueprint</h2>
-                    <p>Each layer is designed to monitor, mitigate, and execute with the discipline of a mission-critical system.</p>
-                </div>
-                <div class="glow-card-grid">
-                    <article class="glow-card">
-                        <h3>AI Risk Engine</h3>
-                        <p>Adaptive models scan transactional behavior in real time, elevating anomalies before they escalate into capital loss.</p>
-                    </article>
-                    <article class="glow-card">
-                        <h3>Safe Layer Integration</h3>
-                        <p>Interoperable APIs weave directly into banking and trading stacks, wrapping existing workflows in Aegis-grade safeguards.</p>
-                    </article>
-                    <article class="glow-card">
-                        <h3>Autonomous Compliance</h3>
-                        <p>Embedded policy logic reconciles regulatory expectations continuously, enabling confident automation across jurisdictions.</p>
-                    </article>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer id="waitlist" class="site-footer">
-        <div class="container">
-            <p>© 2025 AEGIS — Trust the Shield.</p>
-            <div class="footer-links">
-                <a href="#" aria-label="Privacy Policy">Privacy</a>
-                <span>|</span>
-                <a href="#" aria-label="Terms of Service">Terms</a>
-                <span>|</span>
-                <a href="#" aria-label="Security">Security</a>
-            </div>
-        </div>
-    </footer>
-
-    <script src="script.js"></script>
+    <canvas id="background-canvas" aria-hidden="true"></canvas>
+    <div id="app"></div>
+    <script type="module" src="script.js"></script>
 </body>
 </html>

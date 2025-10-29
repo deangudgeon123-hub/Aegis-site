@@ -6,64 +6,12 @@
     <title>AEGIS | Contact</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-TenCNDtPug1JtmENcGukdxbYlR5c+3F4iAfDdc0AGJi/7luWGINuD/7++UZ5EKeosFVJeFt3PcT7PpShypQf4g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body data-page="contact">
-    <header class="top-nav">
-        <div class="nav-inner">
-            <div class="logo">
-                <img src="IMG_2596.png" alt="AEGIS Logo">
-            </div>
-            <button class="hamburger" aria-label="Toggle navigation" aria-expanded="false">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            <nav class="nav-menu" aria-label="Main navigation" aria-hidden="true">
-                <a href="index.html" class="nav-link" data-nav="home">Home</a>
-                <a href="tech.html" class="nav-link" data-nav="tech">Tech</a>
-                <a href="security.html" class="nav-link" data-nav="security">Security</a>
-                <a href="contact.html" class="nav-link" data-nav="contact">Contact</a>
-            </nav>
-        </div>
-    </header>
-
-    <main>
-        <section class="content-section contact-section" data-animate>
-            <div class="container narrow">
-                <p style="text-align: center;">Questions, ideas, or collaboration requests — send us a message below and we’ll get back shortly.</p>
-                <form class="contact-form" action="#" method="post" onsubmit="event.preventDefault();" novalidate>
-                    <label for="contact-name">Name
-                        <input id="contact-name" type="text" name="name" placeholder="Your name">
-                    </label>
-                    <label for="contact-email">Email
-                        <input id="contact-email" type="email" name="email" placeholder="name@example.com">
-                    </label>
-                    <label for="contact-message">Message
-                        <textarea id="contact-message" name="message" placeholder="Your enquiry"></textarea>
-                    </label>
-                    <button type="submit" class="btn primary">Submit</button>
-                    <small>We typically reply within one business day.</small>
-                </form>
-            </div>
-        </section>
-    </main>
-
-    <footer id="waitlist" class="site-footer">
-        <div class="container">
-            <p>© 2025 AEGIS — Trust the Shield.</p>
-            <div class="footer-links">
-                <a href="#" aria-label="Privacy Policy">Privacy</a>
-                <span>|</span>
-                <a href="#" aria-label="Terms of Service">Terms</a>
-                <span>|</span>
-                <a href="#" aria-label="Security">Security</a>
-            </div>
-        </div>
-    </footer>
-
-    <script src="script.js"></script>
+    <canvas id="background-canvas" aria-hidden="true"></canvas>
+    <div id="app"></div>
+    <script type="module" src="script.js"></script>
 </body>
 </html>
