@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'https://esm.sh/react@18.2.0';
 import { gsap } from '../utils/gsap.js';
+import { html } from '../utils/html.js';
 
 const values = [
     {
@@ -54,8 +55,8 @@ export default function AboutPage() {
         return () => ctx.revert();
     }, []);
 
-    return (
-        <div className="page about-page" ref={scope}>
+    return html`
+        <div className="page about-page" ref=${scope}>
             <section className="about-hero glass-elevated" data-parallax-depth="0.2">
                 <h1>Who We Are</h1>
                 <p>
@@ -101,14 +102,16 @@ export default function AboutPage() {
                     <p>Three tenets guide how the Aegis shield is forged, deployed, and measured.</p>
                 </div>
                 <div className="values-grid">
-                    {values.map(({ title, description }) => (
-                        <article key={title} className="value-card glass-soft">
-                            <h3>{title}</h3>
-                            <p>{description}</p>
-                        </article>
-                    ))}
+                    ${values.map(
+                        ({ title, description }) => html`
+                            <article key=${title} className="value-card glass-soft">
+                                <h3>${title}</h3>
+                                <p>${description}</p>
+                            </article>
+                        `,
+                    )}
                 </div>
             </section>
         </div>
-    );
+    `;
 }

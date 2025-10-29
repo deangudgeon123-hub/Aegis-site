@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'https://esm.sh/react@18.2.0';
 import { gsap } from '../utils/gsap.js';
+import { html } from '../utils/html.js';
 
 const safeguards = [
     {
@@ -47,21 +48,23 @@ export default function SecurityPage() {
         return () => ctx.revert();
     }, []);
 
-    return (
-        <div className="page security-page" ref={scope}>
+    return html`
+        <div className="page security-page" ref=${scope}>
             <section className="security-hero glass-elevated" data-parallax-depth="0.2">
                 <h1 className="security-title">SECURITY DOCTRINE</h1>
             </section>
             <section className="safeguard-section">
                 <div className="safeguard-grid">
-                    {safeguards.map(({ title, description }) => (
-                        <article key={title} className="safeguard-card glass-soft">
-                            <h3>{title}</h3>
-                            <p>{description}</p>
-                        </article>
-                    ))}
+                    ${safeguards.map(
+                        ({ title, description }) => html`
+                            <article key=${title} className="safeguard-card glass-soft">
+                                <h3>${title}</h3>
+                                <p>${description}</p>
+                            </article>
+                        `,
+                    )}
                 </div>
             </section>
         </div>
-    );
+    `;
 }

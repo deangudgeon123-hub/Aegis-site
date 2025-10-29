@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'https://esm.sh/react@18.2.0';
 import { gsap } from '../utils/gsap.js';
+import { html } from '../utils/html.js';
 
 export default function DemoPage() {
     const scope = useRef(null);
@@ -17,8 +18,8 @@ export default function DemoPage() {
         return () => ctx.revert();
     }, []);
 
-    return (
-        <div className="page demo-page" ref={scope}>
+    return html`
+        <div className="page demo-page" ref=${scope}>
             <section className="demo-section">
                 <div className="demo-card glass-elevated" data-parallax-depth="0.18">
                     <h1>Access Demo</h1>
@@ -27,5 +28,5 @@ export default function DemoPage() {
                 </div>
             </section>
         </div>
-    );
+    `;
 }
