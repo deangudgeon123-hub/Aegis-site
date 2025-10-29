@@ -51,7 +51,8 @@ export function createBackgroundScene(canvas) {
                 vec3 base = mix(uColor1, uColor2, vUv.y + wave);
                 float glow = smoothstep(0.8, 1.0, vUv.y + wave);
                 vec3 color = mix(base, uGlow, glow * 0.35);
-                gl_FragColor = vec4(color, 0.95);
+                float alpha = mix(0.35, 0.65, glow);
+                gl_FragColor = vec4(color, alpha);
             }
         `,
     });
