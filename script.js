@@ -1,89 +1,57 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const DESKTOP_BREAKPOINT = 1024;
-    const hamburger = document.querySelector('.hamburger');
-    const navMenu = document.querySelector('.nav-menu');
-    const fadeElements = document.querySelectorAll('.fade-in, .fade-in-delay');
-    const scrollElements = document.querySelectorAll('[data-animate]');
+import React from 'https://esm.sh/react@18.2.0';
+import { createRoot } from 'https://esm.sh/react-dom@18.2.0/client';
+import { NavBar } from './components/NavBar.js';
+import { Footer } from './components/Footer.js';
+import HomePage from './pages/HomePage.js';
+import TechPage from './pages/TechPage.js';
+import SecurityPage from './pages/SecurityPage.js';
+import AboutPage from './pages/AboutPage.js';
+import ContactPage from './pages/ContactPage.js';
+import DemoPage from './pages/DemoPage.js';
+import { createBackgroundScene } from './scenes/BackgroundScene.js';
+import { initParallaxLayers, initScrollHints } from './utils/interactions.js';
+import { ScrollTrigger } from './utils/gsap.js';
 
-    const setActiveNavigation = () => {
-        if (!navMenu) return;
-        const pageId = document.body?.dataset.page;
-        navMenu.querySelectorAll('.nav-link').forEach((link) => {
-            const navId = link.dataset.nav;
-            const isActive = !!pageId && navId === pageId;
-            link.classList.toggle('active', isActive);
-            if (isActive) {
-                link.setAttribute('aria-current', 'page');
-            } else {
-                link.removeAttribute('aria-current');
-            }
-        });
-    };
+const pageKey = document.body.dataset.page || 'home';
 
-    // Initial fade-in for hero elements
-    window.setTimeout(() => {
-        fadeElements.forEach((el) => el.classList.add('visible'));
-    }, 150);
+const pageRegistry = {
+    home: HomePage,
+    tech: TechPage,
+    security: SecurityPage,
+    about: AboutPage,
+    contact: ContactPage,
+    access_demo: DemoPage,
+};
 
-    // Hamburger menu toggle
-    const updateMenuState = (shouldShow) => {
-        if (!hamburger || !navMenu) return;
-        hamburger.classList.toggle('active', shouldShow);
-        hamburger.setAttribute('aria-expanded', String(shouldShow));
-        navMenu.classList.toggle('show', shouldShow);
-        navMenu.setAttribute('aria-hidden', String(!shouldShow));
-    };
+const PageComponent = pageRegistry[pageKey] ?? HomePage;
 
-    const handleViewportChange = () => {
-        if (!navMenu) return;
-        if (window.innerWidth >= DESKTOP_BREAKPOINT) {
-            navMenu.setAttribute('aria-hidden', 'false');
-            if (hamburger) {
-                hamburger.classList.remove('active');
-                hamburger.setAttribute('aria-expanded', 'false');
-            }
-            navMenu.classList.remove('show');
-        } else {
-            const isOpen = navMenu.classList.contains('show');
-            navMenu.setAttribute('aria-hidden', String(!isOpen));
-            if (hamburger && !isOpen) {
-                hamburger.classList.remove('active');
-                hamburger.setAttribute('aria-expanded', 'false');
-            }
-        }
-    };
+function App() {
+    return (
+        <>
+            <NavBar currentPage={pageKey} />
+            <main className="page-shell">
+                <PageComponent />
+            </main>
+            <Footer page={pageKey} />
+        </>
+    );
+}
 
-    if (hamburger && navMenu) {
-        hamburger.addEventListener('click', () => {
-            const isExpanded = hamburger.getAttribute('aria-expanded') === 'true';
-            updateMenuState(!isExpanded);
-        });
-    }
+const rootElement = document.getElementById('app');
+const root = createRoot(rootElement);
+root.render(<App />);
 
-    // Close menu when clicking link on mobile
-    navMenu?.querySelectorAll('a').forEach((link) => {
-        link.addEventListener('click', () => {
-            if (window.innerWidth < DESKTOP_BREAKPOINT && navMenu.classList.contains('show')) {
-                updateMenuState(false);
-            }
-        });
-    });
+let teardownParallax;
 
-    setActiveNavigation();
-    handleViewportChange();
-    window.addEventListener('resize', handleViewportChange);
+requestAnimationFrame(() => {
+    initScrollHints();
+    teardownParallax = initParallaxLayers();
+    ScrollTrigger.refresh();
+});
 
-    // Intersection Observer for scroll animations
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                observer.unobserve(entry.target);
-            }
-        });
-    }, {
-        threshold: 0.2
-    });
+const teardownScene = createBackgroundScene(document.getElementById('background-canvas'));
 
-    scrollElements.forEach((el) => observer.observe(el));
+window.addEventListener('beforeunload', () => {
+    teardownScene?.();
+    teardownParallax?.();
 });
