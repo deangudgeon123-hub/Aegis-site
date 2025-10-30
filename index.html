@@ -1,17 +1,169 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AEGIS | Trust the Shield</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aegis — The Safety Layer of Intelligent Finance</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Rajdhani:wght@600;700&display=swap"
+        rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
 </head>
-<body data-page="home">
-    <canvas id="background-canvas" aria-hidden="true"></canvas>
-    <div id="app"></div>
-    <script type="module" src="script.js"></script>
+<body>
+    <div class="progress-indicator" aria-hidden="true">
+        <span class="progress-track"><span class="progress-thumb"></span></span>
+    </div>
+    <div class="cursor-light" aria-hidden="true"></div>
+    <main id="aegis" class="page-shell">
+        <section class="section hero" id="hero">
+            <div class="hero-background">
+                <canvas id="hero-canvas" aria-hidden="true"></canvas>
+                <div class="hero-glow" aria-hidden="true"></div>
+            </div>
+            <div class="hero-content">
+                <div class="brand-header">
+                    <span class="brand-name">Aegis</span>
+                    <span class="brand-sub">The Safety Layer of Intelligent Finance</span>
+                </div>
+                <p class="hero-kicker">NEXT-GEN AI SECURITY</p>
+                <h1 class="hero-title">AI and finance are already here — the question is, who do you trust?</h1>
+                <p class="hero-body">
+                    Aegis is your AI shield for modern finance — built to protect, guide, and optimize your digital assets.
+                </p>
+                <div class="hero-actions">
+                    <button class="btn primary" type="button" disabled aria-disabled="true">Access Demo</button>
+                    <a class="btn ghost" href="#contact" data-scroll-trigger>Join Waitlist</a>
+                </div>
+                <div class="scroll-cta">
+                    <button type="button" class="scroll-anchor" data-scroll-trigger data-target="#mission">Scroll</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="section mission" id="mission">
+            <div class="sequence-intro">
+                <h2>Who We Are</h2>
+                <p>
+                    Aegis builds financial trust in an age of autonomous AI. We engineer intelligent systems that safeguard
+                    transactions, data, and users — giving institutions a layer of defense they can depend on.
+                </p>
+            </div>
+            <div class="sequence-wrapper" data-sequence>
+                <div class="sequence-track" data-sequence-track>
+                    <article class="sequence-panel" data-panel="mission">
+                        <h3>Our Mission</h3>
+                        <p>
+                            To fuse AI precision with financial resilience. Aegis develops intelligent systems that detect risk before it strikes, reinforce trust between users and institutions, and turn real-time insight into lasting security.
+                        </p>
+                    </article>
+                    <article class="sequence-panel" data-panel="vision">
+                        <h3>Our Vision</h3>
+                        <p>
+                            A world where AI and finance evolve safely — together. Aegis exists to embed resilience into every transaction and accountability into every algorithm — protecting investors, institutions, and innovation itself.
+                        </p>
+                    </article>
+                    <article class="sequence-panel" data-panel="values">
+                        <h3>Our Values</h3>
+                        <p>Three tenets guide how the Aegis shield is forged, deployed, and measured.</p>
+                        <div class="values-list">
+                            <p>Integrity — Every model, metric, and partnership is built on uncompromising trust.</p>
+                            <p>Precision — Constant refinement keeps our systems sharp, our signals clear, and our defenses ahead.</p>
+                            <p>Protection — We design for resilience, ensuring our clients stay guarded against evolving threats without sacrificing performance.</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+            <aside class="founder-card">
+                <h3>The Founder</h3>
+                <p>Dean Gudgeon — Founder &amp; Architect.</p>
+                <p>
+                    Dean Gudgeon — Founder &amp; Architect. Dean is a systems architect dedicated to disciplined, transparent AI for regulated environments. He created Aegis to prove that automation and accountability can coexist — building a safer future for users, investors, and the institutions that serve them.
+                </p>
+            </aside>
+        </section>
+
+        <section class="section technology" id="technology">
+            <div class="technology-visual" aria-hidden="true">
+                <canvas id="blueprint-canvas"></canvas>
+            </div>
+            <div class="technology-content">
+                <h2>Technology Blueprint</h2>
+                <p>Each layer is designed to monitor, mitigate, and execute with the discipline of a mission-critical system.</p>
+                <ul class="layer-list">
+                    <li data-layer="risk">
+                        <h3>AI Risk Engine</h3>
+                        <p>Adaptive models scan transactional behavior in real time, elevating anomalies before they escalate into capital loss.</p>
+                    </li>
+                    <li data-layer="integration">
+                        <h3>Safe Layer Integration</h3>
+                        <p>Interoperable APIs weave directly into banking and trading stacks, wrapping existing workflows in Aegis-grade safeguards.</p>
+                    </li>
+                    <li data-layer="compliance">
+                        <h3>Autonomous Compliance</h3>
+                        <p>Embedded policy logic reconciles regulatory expectations continuously, enabling confident automation across jurisdictions.</p>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="section security" id="security">
+            <div class="security-background" aria-hidden="true">
+                <div class="security-waves"></div>
+            </div>
+            <div class="security-content">
+                <h2 class="security-title">SECURITY DOCTRINE</h2>
+                <div class="safeguards">
+                    <article>
+                        <h3>Encryption Layers</h3>
+                        <p>Multi-tier encryption envelopes every signal, from ingest to action, reinforcing confidentiality across distributed nodes.</p>
+                    </article>
+                    <article>
+                        <h3>Data Governance</h3>
+                        <p>Granular policy controls and immutable audit trails keep oversight clear, enabling confident reporting and audit readiness.</p>
+                    </article>
+                    <article>
+                        <h3>User Protection</h3>
+                        <p>Risk-aware permissions adapt to user context, guarding accounts with adaptive authentication and session intelligence.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="section outro" id="contact">
+            <div class="contact-block">
+                <p class="contact-intro">Questions, ideas, or collaboration requests — send us a message below and we’ll get back shortly.</p>
+                <form class="contact-form" action="#" method="post" novalidate>
+                    <label for="contact-name">Name
+                        <input id="contact-name" name="name" type="text" placeholder="Your name" />
+                    </label>
+                    <label for="contact-email">Email
+                        <input id="contact-email" name="email" type="email" placeholder="name@example.com" />
+                    </label>
+                    <label for="contact-message">Message
+                        <textarea id="contact-message" name="message" rows="4" placeholder="Your enquiry"></textarea>
+                    </label>
+                    <button type="submit" class="btn primary">Submit</button>
+                    <small>We typically reply within one business day.</small>
+                </form>
+            </div>
+            <div class="outro-core">
+                <p class="outro-motto">Aegis — The Safety Layer of Intelligent Finance</p>
+                <div class="orbit-links" aria-label="Aegis network links">
+                    <a href="#" class="orbit-link" aria-label="GitHub">GitHub</a>
+                    <a href="#" class="orbit-link" aria-label="Y Combinator">YC</a>
+                    <a href="#" class="orbit-link" aria-label="Contact">Contact</a>
+                </div>
+                <div class="footer-ledger">
+                    <p>© 2025 Aegis - Trust the Shield.</p>
+                    <p>© 2025 AEGIS — Trust the Shield.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script type="module" src="main.js"></script>
 </body>
 </html>
