@@ -1,258 +1,276 @@
-import { gsap, ScrollTrigger, ScrollToPlugin } from './utils/gsap.js';
-import { initHeroScene } from './scenes/hero.js';
-import { initBlueprintScene } from './scenes/blueprint.js';
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const lowSpecDevice = typeof navigator !== 'undefined' && 'deviceMemory' in navigator && navigator.deviceMemory < 4;
 
-gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+class EnergyRain {
+  constructor(canvas) {
+    this.canvas = canvas;
+    this.ctx = this.canvas.getContext('2d');
+    this.dpr = window.devicePixelRatio || 1;
+    this.strips = [];
+    this.frame = null;
+    this.lastTimestamp = 0;
+    this.scrollY = window.scrollY || 0;
+    this.tick = this.tick.bind(this);
+    this.handleResize = this.handleResize.bind(this);
+    this.handleScroll = this.handleScroll.bind(this);
+    this.configure();
+  }
 
-const heroCanvas = document.getElementById('hero-canvas');
-const blueprintCanvas = document.getElementById('blueprint-canvas');
+  configure() {
+    this.handleResize();
+    window.addEventListener('resize', this.handleResize);
+    window.addEventListener('scroll', this.handleScroll, { passive: true });
+    this.frame = requestAnimationFrame(this.tick);
+  }
 
-const heroControls = initHeroScene(heroCanvas);
-const blueprintControls = initBlueprintScene(blueprintCanvas);
+  handleScroll() {
+    this.scrollY = window.scrollY || 0;
+  }
 
-const body = document.body;
-const cursor = document.querySelector('.cursor-light');
-const progressThumb = document.querySelector('.progress-thumb');
+  handleResize() {
+    const { innerWidth, innerHeight } = window;
+    this.canvas.width = innerWidth * this.dpr;
+    this.canvas.height = innerHeight * this.dpr;
+    this.canvas.style.width = `${innerWidth}px`;
+    this.canvas.style.height = `${innerHeight}px`;
+    this.ctx.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
+    this.createStrips();
+  }
 
-function updateProgress() {
-    const max = document.documentElement.scrollHeight - window.innerHeight;
-    const pct = max > 0 ? window.scrollY / max : 0;
-    progressThumb.style.transform = `scaleY(${Math.max(0.02, pct)}) translateZ(0)`;
+  createStrips() {
+    const count = window.innerWidth < 768 ? 9 : 18;
+    this.strips = new Array(count).fill(null).map(() => this.createStrip());
+  }
+
+  createStrip() {
+    const width = Math.random() * 2 + 2;
+    const height = Math.random() * 120 + 80;
+    const speed = Math.random() * 30 + 20;
+    const opacity = Math.random() * 0.25 + (window.innerWidth < 768 ? 0.1 : 0.15);
+    return {
+      x: Math.random() * window.innerWidth,
+      y: Math.random() * window.innerHeight,
+      width,
+      height,
+      speed,
+      opacity,
+    };
+  }
+
+  resetStrip(strip) {
+    strip.x = Math.random() * window.innerWidth;
+    strip.y = this.scrollY - 200 - strip.height;
+    strip.height = Math.random() * 120 + 80;
+    strip.width = Math.random() * 2 + 2;
+    strip.speed = Math.random() * 30 + 20;
+    strip.opacity = Math.random() * 0.25 + (window.innerWidth < 768 ? 0.1 : 0.15);
+  }
+
+  tick(timestamp) {
+    this.frame = requestAnimationFrame(this.tick);
+    if (timestamp - this.lastTimestamp < 1000 / 48) {
+      return;
+    }
+    const delta = (timestamp - this.lastTimestamp) / 1000 || 0;
+    this.lastTimestamp = timestamp;
+
+    const { innerHeight } = window;
+    const viewportStart = this.scrollY - 200;
+    const viewportEnd = this.scrollY + innerHeight + 200;
+
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+    for (const strip of this.strips) {
+      const stripTop = strip.y;
+      const stripBottom = strip.y + strip.height;
+      if (stripBottom < viewportStart || stripTop > viewportEnd) {
+        continue;
+      }
+      this.ctx.globalAlpha = strip.opacity;
+      this.ctx.fillStyle = '#00e0ff';
+      this.ctx.fillRect(Math.round(strip.x), Math.round(strip.y), Math.ceil(strip.width), Math.ceil(strip.height));
+      strip.y += strip.speed * delta;
+      if (strip.y - strip.height > viewportEnd) {
+        this.resetStrip(strip);
+      }
+    }
+    this.ctx.globalAlpha = 1;
+  }
+
+  destroy() {
+    cancelAnimationFrame(this.frame);
+    window.removeEventListener('resize', this.handleResize);
+    window.removeEventListener('scroll', this.handleScroll);
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+  }
 }
 
-updateProgress();
-window.addEventListener('scroll', updateProgress, { passive: true });
-window.addEventListener('resize', updateProgress);
+function initSmoothScroll() {
+  const anchors = [
+    { trigger: document.getElementById('hero-demo'), target: '/demo.html' },
+    { trigger: document.getElementById('hero-waitlist'), target: '#contact' },
+  ];
+  let smoother = null;
 
-window.addEventListener('pointermove', (event) => {
-    const x = event.clientX / window.innerWidth;
-    const y = event.clientY / window.innerHeight;
-    body.style.setProperty('--cursor-x', `${x}`);
-    body.style.setProperty('--cursor-y', `${y}`);
-    cursor.style.opacity = 1;
-});
-
-const rippleTargets = document.querySelectorAll('.btn, .orbit-link, .scroll-anchor');
-rippleTargets.forEach((element) => {
-    element.addEventListener('pointerdown', (event) => {
-        if (element.matches('[disabled]')) return;
-
-        const rect = element.getBoundingClientRect();
-        const width = rect.width || 1;
-        const height = rect.height || 1;
-        const x = ((event.clientX - rect.left) / width) * 100;
-        const y = ((event.clientY - rect.top) / height) * 100;
-
-        element.style.setProperty('--ripple-x', `${x}%`);
-        element.style.setProperty('--ripple-y', `${y}%`);
-
-        element.classList.remove('is-rippling');
-        void element.offsetWidth;
-        element.classList.add('is-rippling');
-
-        window.setTimeout(() => {
-            element.classList.remove('is-rippling');
-        }, 600);
+  if (!prefersReducedMotion && window.gsap && window.ScrollSmoother) {
+    smoother = window.ScrollSmoother.create({
+      wrapper: '#smooth-wrapper',
+      content: '#smooth-content',
+      smooth: 1.2,
+      effects: true,
     });
-});
+  }
 
-const scrollTriggers = document.querySelectorAll('[data-scroll-trigger]');
-scrollTriggers.forEach((el) => {
-    const target = el.getAttribute('data-target') || el.getAttribute('href');
-    el.addEventListener('click', (event) => {
-        if (!target || !target.startsWith('#')) return;
-        event.preventDefault();
-        gsap.to(window, { duration: 1.4, ease: 'power3.inOut', scrollTo: target });
+  anchors.forEach(({ trigger, target }) => {
+    if (!trigger) return;
+    trigger.addEventListener('click', (event) => {
+      if (target === '/demo.html') {
+        return;
+      }
+      event.preventDefault();
+      const section = document.querySelector(target);
+      if (!section) return;
+      if (smoother) {
+        smoother.scrollTo(section, true, 'top top');
+      } else {
+        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     });
-});
+  });
 
-gsap.utils.toArray('.section').forEach((section) => {
-    if (section.classList.contains('hero')) return;
+  return smoother;
+}
 
-    gsap.from(section, {
-        autoAlpha: 0,
-        y: 40,
-        duration: 0.6,
-        ease: 'power2.out',
+function initGsapAnimations(smoother) {
+  const animated = Array.from(document.querySelectorAll('[data-animate]')).filter((el) => el.dataset.animate !== 'hero');
+
+  animated.forEach((el, index) => {
+    const from = index % 2 === 0 ? { x: -40, autoAlpha: 0 } : { x: 40, autoAlpha: 0 };
+    const to = { x: 0, autoAlpha: 1, duration: 0.8, ease: 'power2.out' };
+    window.gsap.fromTo(
+      el,
+      { ...from },
+      {
+        ...to,
         scrollTrigger: {
-            trigger: section,
-            start: 'top 80%',
-            once: true,
+          trigger: el,
+          start: 'top 80%',
+          toggleActions: 'play none none reverse',
         },
+      }
+    );
+  });
+
+  const hero = document.querySelector('[data-animate="hero"]');
+  if (hero) {
+    window.gsap.set(hero, { opacity: 1, y: 0 });
+    window.gsap.set(hero.children, { y: 40, opacity: 0 });
+    window.gsap.to(hero.children, {
+      y: 0,
+      opacity: 1,
+      duration: 1.2,
+      delay: 0.4,
+      ease: 'power2.out',
+      stagger: 0.12,
     });
-});
+  }
 
-const heroTimeline = gsap.timeline({ defaults: { ease: 'power4.out' } });
-heroTimeline
-    .from('.brand-header', { y: -32, autoAlpha: 0, duration: 1.2 })
-    .from('.hero-kicker', { autoAlpha: 0, y: 20, duration: 0.8 }, '-=0.6')
-    .from('.hero-title', { autoAlpha: 0, y: 32, duration: 1 }, '-=0.4')
-    .from('.hero-body', { autoAlpha: 0, y: 28, duration: 1 }, '-=0.6')
-    .from('.hero-actions', { autoAlpha: 0, y: 24, duration: 0.9 }, '-=0.6')
-    .from('.scroll-cta', { autoAlpha: 0, y: 18, duration: 0.7 }, '-=0.6');
+  window.gsap.utils.toArray('.section').forEach((section, index, sections) => {
+    if (index === sections.length - 1) return;
+    window.ScrollTrigger.create({
+      trigger: section,
+      start: 'top center',
+      end: 'bottom center',
+      onLeave: () => window.gsap.to(section, { autoAlpha: 0.3, duration: 0.6, ease: 'power2.out' }),
+      onEnterBack: () => window.gsap.to(section, { autoAlpha: 1, duration: 0.6, ease: 'power2.out' }),
+    });
+  });
 
-gsap.from('.hero-glow', {
-    autoAlpha: 0,
-    scale: 0.8,
-    duration: 1.4,
-    ease: 'power3.out',
-});
-
-gsap.to('.hero-title', {
-    scrollTrigger: {
-        trigger: '.hero',
+  const background = document.querySelector('.background');
+  if (background) {
+    window.gsap.to(background, {
+      yPercent: -15,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '#smooth-content',
         start: 'top top',
-        end: 'bottom top',
+        end: 'bottom bottom',
         scrub: true,
-    },
-    letterSpacing: '0.08em',
-    opacity: 0.75,
-});
-
-const sequence = document.querySelector('[data-sequence]');
-if (sequence) {
-    const track = sequence.querySelector('[data-sequence-track]');
-    const panels = gsap.utils.toArray('.sequence-panel');
-
-    gsap.set(track, { display: 'flex' });
-
-    const totalWidth = panels.length * 100;
-    gsap.set(track, { width: `${totalWidth}%` });
-    panels.forEach((panel) => gsap.set(panel, { width: `${100 / panels.length}%` }));
-
-    const sequenceTimeline = gsap.timeline({
-        scrollTrigger: {
-            trigger: sequence,
-            start: 'top top',
-            end: () => `+=${window.innerHeight * panels.length}`,
-            scrub: true,
-            pin: true,
-            anticipatePin: 1,
-        },
+      },
     });
+  }
 
-    sequenceTimeline.to(track, { xPercent: -100 * (panels.length - 1), ease: 'none' });
-
-    panels[0]?.classList.add('is-active');
-
-    panels.forEach((panel) => {
-        ScrollTrigger.create({
-            trigger: panel,
-            start: () => `left center`,
-            horizontal: true,
-            containerAnimation: sequenceTimeline,
-            onEnter: () => panel.classList.add('is-active'),
-            onEnterBack: () => panel.classList.add('is-active'),
-            onLeave: () => panel.classList.remove('is-active'),
-            onLeaveBack: () => panel.classList.remove('is-active'),
-        });
-    });
-
-    gsap.from('.founder-card', {
-        scrollTrigger: {
-            trigger: '.founder-card',
-            start: 'top 80%',
-        },
-        autoAlpha: 0,
-        y: 40,
-        duration: 1.2,
-        ease: 'power3.out',
-    });
-}
-
-const technologySection = document.querySelector('.technology');
-if (technologySection) {
-    const layers = technologySection.querySelectorAll('.layer-list li');
-
-    layers.forEach((layer, index) => {
-        gsap.from(layer, {
-            scrollTrigger: {
-                trigger: layer,
-                start: 'top 85%',
-            },
-            autoAlpha: 0,
-            y: 30,
-            duration: 1,
-            ease: 'power2.out',
-        });
-
-        ScrollTrigger.create({
-            trigger: layer,
-            start: 'top center',
-            end: 'bottom center',
-            onEnter: () => blueprintControls?.setActive(index),
-            onEnterBack: () => blueprintControls?.setActive(index),
-        });
-    });
-}
-
-gsap.from('.security-title', {
-    scrollTrigger: {
-        trigger: '.security',
-        start: 'top 75%',
-    },
-    autoAlpha: 0,
-    y: 60,
-    duration: 1.3,
-    ease: 'expo.out',
-});
-
-gsap.utils.toArray('.safeguards article').forEach((card, index) => {
-    gsap.from(card, {
-        scrollTrigger: {
-            trigger: card,
-            start: 'top 80%',
-        },
-        autoAlpha: 0,
-        y: 40,
-        duration: 1,
-        delay: index * 0.1,
-    });
-});
-
-gsap.to('.security-waves', {
-    scrollTrigger: {
-        trigger: '.security',
-        start: 'top bottom',
-        end: 'bottom top',
+  if (smoother) {
+    window.gsap.to('#energy-canvas', {
+      opacity: 0.65,
+      ease: 'power1.out',
+      scrollTrigger: {
+        trigger: '#smooth-content',
+        start: 'top top',
+        end: 'bottom bottom',
         scrub: true,
-    },
-    backgroundPosition: '200% 50%',
-});
-
-const contactBlock = document.querySelector('.contact-block');
-if (contactBlock) {
-    gsap.from(contactBlock, {
-        scrollTrigger: {
-            trigger: contactBlock,
-            start: 'top 80%',
-        },
-        autoAlpha: 0,
-        y: 60,
-        duration: 1.1,
+      },
     });
+  }
 }
 
-gsap.from('.outro-core', {
-    scrollTrigger: {
-        trigger: '.outro-core',
-        start: 'top 85%',
+function initIntersectionFallback() {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+        }
+      });
     },
-    autoAlpha: 0,
-    y: 50,
-    duration: 1,
-});
-
-const contactForm = document.querySelector('.contact-form');
-if (contactForm) {
-    contactForm.addEventListener('submit', (event) => event.preventDefault());
+    { threshold: 0.2 }
+  );
+  document.querySelectorAll('[data-animate]').forEach((el, index) => {
+    if (el.dataset.animate === 'hero') {
+      el.classList.add('is-visible');
+      observer.observe(el);
+      return;
+    }
+    if (index % 2 === 0) {
+      el.classList.add('from-left');
+    } else {
+      el.classList.add('from-right');
+    }
+    observer.observe(el);
+  });
 }
 
-const refreshHandler = () => updateProgress();
-ScrollTrigger.addEventListener('refreshInit', refreshHandler);
+document.addEventListener('DOMContentLoaded', () => {
+  let smoother = null;
+  const canvas = document.getElementById('energy-canvas');
+  let rain = null;
 
-window.addEventListener('beforeunload', () => {
-    heroControls?.destroy?.();
-    blueprintControls?.destroy?.();
-    ScrollTrigger.removeEventListener('refreshInit', refreshHandler);
+  if (!prefersReducedMotion && !lowSpecDevice && canvas) {
+    rain = new EnergyRain(canvas);
+  } else if (canvas) {
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  }
+
+  smoother = initSmoothScroll();
+
+  if (!prefersReducedMotion && window.gsap && window.ScrollTrigger) {
+    try {
+      window.ScrollTrigger.config({ ignoreMobileResize: true });
+      initGsapAnimations(smoother);
+    } catch (error) {
+      console.warn('GSAP initialization failed, falling back to IntersectionObserver.', error);
+      initIntersectionFallback();
+    }
+  } else {
+    initIntersectionFallback();
+  }
+
+  window.addEventListener('beforeunload', () => {
+    if (rain) {
+      rain.destroy();
+    }
+  });
 });
