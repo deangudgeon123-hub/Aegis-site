@@ -61,43 +61,40 @@
         .fromTo(
           '.hero__logo',
           { opacity: 0, y: 30 },
-          { opacity: 1, y: 0, duration: 1.2, ease: 'power2.out' }
+          { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' }
         )
         .fromTo(
           '.hero [data-animate]',
-          { opacity: 0, y: 50 },
+          { opacity: 0, y: 30 },
           {
             opacity: 1,
             y: 0,
-            duration: 1.2,
+            duration: 0.8,
             ease: 'power2.out',
-            stagger: 0.12
+            stagger: 0.1
           },
           '-=0.9'
         );
 
       document.querySelectorAll('[data-section]').forEach((section) => {
-        const animateTargets = section.querySelectorAll('[data-animate]');
+        const animateTargets = section.querySelectorAll('.fade-in-up');
         if (!animateTargets.length) return;
 
         gsap.fromTo(
           animateTargets,
           {
             opacity: 0,
-            y: 60,
-            x: (index) => (index % 2 === 0 ? -40 : 40)
+            y: 30
           },
           {
             opacity: 1,
             y: 0,
-            x: 0,
             ease: 'power2.out',
             duration: 0.8,
             stagger: 0.1,
             scrollTrigger: {
               trigger: section,
               start: 'top 75%',
-              end: 'bottom 30%',
               toggleActions: 'play none none reverse'
             }
           }
@@ -133,7 +130,7 @@
   }
 
   function revealFallback() {
-    const elements = document.querySelectorAll('[data-animate]');
+    const elements = document.querySelectorAll('.fade-in-up');
     if (!elements.length) return;
 
     const observer = new IntersectionObserver(
