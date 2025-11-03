@@ -151,8 +151,12 @@ section,
 section.hero {
   min-height: 100vh;
   padding-top: clamp(8rem, 18vh, 12rem);
-  padding-bottom: clamp(8rem, 18vh, 12rem);
+  padding-bottom: clamp(5rem, 12vh, 8rem);
   align-items: center;
+}
+
+.about {
+  padding-top: clamp(3rem, 8vh, 5rem);
 }
 
 .hero::before {
