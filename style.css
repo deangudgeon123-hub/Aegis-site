@@ -14,9 +14,10 @@
   --text-primary: #e9eef8;
   --accent-start: #00e0ff;
   --accent-end: #a5b4fc;
-  --surface-glass: rgba(21, 34, 61, 0.45);
-  --surface-border: rgba(165, 180, 252, 0.18);
-  --shadow-soft: 0 20px 80px rgba(0, 224, 255, 0.12);
+  --surface-glass: rgba(13, 22, 40, 0.72);
+  --surface-outline: rgba(0, 224, 255, 0.16);
+  --surface-outline-strong: rgba(0, 224, 255, 0.32);
+  --shadow-soft: 0 24px 80px rgba(0, 224, 255, 0.16);
   font-size: 16px;
 }
 
@@ -31,18 +32,7 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   line-height: 1.7;
-  letter-spacing: 0.02em;
-}
-
-.fade-in-up {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
-}
-
-.fade-in-up.is-visible {
-  opacity: 1;
-  transform: translateY(0);
+  letter-spacing: 0.015em;
 }
 
 img,
@@ -51,9 +41,18 @@ svg {
   max-width: 100%;
 }
 
-#smooth-wrapper,
-#smooth-content {
-  height: 100%;
+/* =============================================
+   Motion Utilities
+   ============================================= */
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.fade-in-up.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* =============================================
@@ -94,75 +93,258 @@ svg {
 }
 
 /* =============================================
-   Hero
+   Fixed Logo Header
    ============================================= */
-.hero {
-  position: relative;
-  min-height: 100vh;
+.aegis-logo {
+  position: fixed;
+  top: 25px;
+  left: 25px;
+  z-index: 1000;
   display: grid;
-  place-items: center;
-  padding: clamp(3rem, 8vw, 6rem) clamp(1.5rem, 6vw, 5rem);
-}
-
-.hero__inner {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: clamp(0.75rem, 1.5vw, 1.5rem);
-  text-align: center;
-  max-width: min(90vw, 800px);
-  margin-inline: auto;
-  backdrop-filter: blur(12px);
-  padding: clamp(2.5rem, 5vw, 4rem) clamp(1.5rem, 4vw, 3.5rem);
-  background: linear-gradient(135deg, rgba(10, 15, 28, 0.65), rgba(11, 26, 54, 0.35));
-  border: 1px solid rgba(0, 224, 255, 0.08);
-  border-radius: 24px;
-  box-shadow: var(--shadow-soft);
-}
-
-.hero__logo {
-  margin-bottom: 2.5rem; /* 40px */
-}
-
-.hero__logo svg {
-  height: clamp(80px, 12vw, 120px);
-  filter: drop-shadow(0 0 22px rgba(0, 224, 255, 0.45));
-}
-
-.hero__tagline {
-  font-size: clamp(0.85rem, 1vw + 0.6rem, 1.1rem);
-  font-weight: 500;
-  letter-spacing: 0.3em;
+  gap: 0.35rem;
+  font-family: "Rajdhani", "Inter", sans-serif;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: rgba(233, 238, 248, 0.75);
-  margin-top: 0;
-  margin-bottom: 2rem; /* 32px between tagline and CTA container */
+  color: rgba(233, 238, 248, 0.9);
 }
 
-.hero__title {
-  font-size: clamp(2rem, 3vw + 1.2rem, 3.5rem);
+.aegis-logo h1 {
+  font-size: 1.4rem;
   font-weight: 600;
-  line-height: 1.2;
-  margin: 0;
 }
 
-.hero__description {
-  font-size: clamp(1rem, 1.2vw + 0.9rem, 1.4rem);
-  color: rgba(233, 238, 248, 0.85);
-  max-width: 640px;
-  margin: 0;
-}
-
-.hero__actions {
-  display: flex;
-  gap: 1rem;
-  margin-top: 0;
-  flex-wrap: wrap;
-  justify-content: center;
+.aegis-logo p {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: rgba(233, 238, 248, 0.7);
+  letter-spacing: 0.18em;
 }
 
 /* =============================================
-   Buttons
+   Layout Scaffolding
+   ============================================= */
+#smooth-wrapper,
+#smooth-content {
+  height: 100%;
+}
+
+section,
+.site-footer {
+  position: relative;
+  padding: clamp(5rem, 12vh, 8rem) clamp(1.5rem, 6vw, 5rem);
+  display: flex;
+  justify-content: center;
+}
+
+.section-shell {
+  width: min(100%, 1040px);
+  display: grid;
+  gap: clamp(1.8rem, 2vw, 2.6rem);
+  background: linear-gradient(135deg, rgba(10, 18, 34, 0.75), rgba(9, 22, 44, 0.55));
+  border: 1px solid var(--surface-outline);
+  border-radius: 28px;
+  padding: clamp(3rem, 5vw, 4rem);
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(18px);
+}
+
+section.hero {
+  min-height: 100vh;
+  padding-top: clamp(8rem, 18vh, 12rem);
+  padding-bottom: clamp(8rem, 18vh, 12rem);
+  align-items: center;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 15% 10%;
+  background: radial-gradient(circle at center, rgba(0, 224, 255, 0.18), transparent 60%);
+  filter: blur(40px);
+  opacity: 0.45;
+  animation: heroGlow 6s ease-in-out infinite alternate;
+  z-index: -1;
+}
+
+.hero__content {
+  width: min(100%, 800px);
+  text-align: center;
+  margin: 0 auto;
+  display: grid;
+  gap: clamp(1.4rem, 2vw, 2rem);
+  backdrop-filter: blur(18px);
+  padding: clamp(3rem, 6vw, 4.5rem);
+  border-radius: 32px;
+  background: linear-gradient(135deg, rgba(8, 14, 26, 0.82), rgba(12, 26, 50, 0.62));
+  border: 1px solid rgba(0, 224, 255, 0.12);
+  box-shadow: 0 32px 120px rgba(0, 224, 255, 0.18);
+}
+
+.hero h2 {
+  font-size: clamp(2.3rem, 3vw + 1.5rem, 4rem);
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.hero p {
+  font-size: clamp(1.05rem, 1.2vw + 0.9rem, 1.35rem);
+  color: rgba(233, 238, 248, 0.85);
+}
+
+.cta-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.cta-buttons a {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 2.75rem;
+  border-radius: 14px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
+  backdrop-filter: blur(4px);
+}
+
+.cta-buttons .primary {
+  color: #05070f;
+  background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+  box-shadow: 0 20px 70px rgba(0, 224, 255, 0.3);
+}
+
+.cta-buttons .secondary {
+  color: rgba(233, 238, 248, 0.9);
+  background: rgba(8, 18, 36, 0.75);
+  border: 1px solid rgba(0, 224, 255, 0.28);
+  box-shadow: 0 18px 60px rgba(0, 224, 255, 0.18);
+}
+
+.cta-buttons a:hover,
+.cta-buttons a:focus-visible {
+  transform: translateY(-4px);
+  box-shadow: 0 26px 90px rgba(0, 224, 255, 0.35);
+}
+
+.trustline {
+  font-size: 0.9rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: rgba(233, 238, 248, 0.7);
+}
+
+/* =============================================
+   Section Styling
+   ============================================= */
+.about .section-shell,
+.systems .section-shell,
+.contact .section-shell {
+  gap: clamp(1.5rem, 2vw, 2.5rem);
+}
+
+.about h3,
+.systems h3,
+.contact h3 {
+  font-size: clamp(1.9rem, 2.2vw + 1rem, 2.8rem);
+  font-weight: 600;
+}
+
+.about h4,
+.systems h4 {
+  font-size: clamp(1.35rem, 1.5vw + 1rem, 2.1rem);
+  font-weight: 600;
+}
+
+.about p,
+.systems p,
+.contact p,
+.site-footer p,
+.values-grid p,
+.tech-grid p,
+.security-grid p {
+  color: rgba(233, 238, 248, 0.8);
+  font-size: clamp(1rem, 1vw + 0.85rem, 1.2rem);
+}
+
+blockquote {
+  margin: 0;
+  font-size: clamp(1.1rem, 1.2vw + 1rem, 1.5rem);
+  font-style: italic;
+  line-height: 1.6;
+  color: rgba(233, 238, 248, 0.85);
+  padding-left: clamp(1.5rem, 2vw, 2.25rem);
+  border-left: 2px solid rgba(0, 224, 255, 0.4);
+}
+
+.section-divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0, 224, 255, 0.35), transparent);
+  box-shadow: 0 0 25px rgba(0, 224, 255, 0.15);
+}
+
+.section-divider--horizontal {
+  margin-block: clamp(1rem, 2vw, 2rem);
+  opacity: 0.45;
+}
+
+.section-divider--cyan {
+  width: 60%;
+  margin: 0 auto;
+  margin-top: clamp(3rem, 6vh, 4rem);
+  margin-bottom: -1.5rem;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(0, 224, 255, 0.6), transparent);
+  box-shadow: 0 0 35px rgba(0, 224, 255, 0.45);
+}
+
+.values-grid {
+  display: grid;
+  gap: clamp(1.5rem, 2vw, 2rem);
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.values-grid div {
+  background: rgba(8, 16, 32, 0.78);
+  border: 1px solid rgba(0, 224, 255, 0.15);
+  border-radius: 20px;
+  padding: clamp(1.5rem, 2.5vw, 2rem);
+  box-shadow: 0 26px 70px rgba(0, 224, 255, 0.14);
+}
+
+.values-grid strong {
+  font-size: 1.05rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 0.75rem;
+  color: rgba(233, 238, 248, 0.92);
+}
+
+.tech-grid,
+.security-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: clamp(1.5rem, 2.5vw, 2.5rem);
+}
+
+.tech-grid div,
+.security-grid div {
+  background: rgba(7, 14, 28, 0.82);
+  border: 1px solid rgba(0, 224, 255, 0.18);
+  border-radius: 22px;
+  padding: clamp(1.75rem, 2.5vw, 2.5rem);
+  box-shadow: 0 30px 80px rgba(0, 224, 255, 0.18);
+}
+
+/* =============================================
+   Buttons + Form
    ============================================= */
 .button {
   position: relative;
@@ -170,195 +352,26 @@ svg {
   align-items: center;
   justify-content: center;
   padding: 1rem 2.5rem;
-  border-radius: 12px;
+  border-radius: 14px;
   min-height: 48px;
-  font-weight: 500;
-  letter-spacing: 0.04em;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   text-decoration: none;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  will-change: transform, box-shadow;
 }
 
-.button::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  background: radial-gradient(circle at center, rgba(0, 224, 255, 0.45), transparent 65%);
-  z-index: -1;
-}
-
-.button--primary {
+.button.button--primary {
   color: #05070f;
   background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
-  box-shadow: 0 12px 40px rgba(0, 224, 255, 0.25);
+  box-shadow: 0 20px 70px rgba(0, 224, 255, 0.32);
+  border: none;
 }
 
-.button--secondary {
-  color: var(--text-primary);
-  background: rgba(9, 17, 34, 0.6);
-  border: 1px solid rgba(0, 224, 255, 0.32);
-  box-shadow: 0 10px 30px rgba(0, 224, 255, 0.18);
-}
-
-.button:hover,
-.button:focus-visible {
-  transform: scale(1.02);
-  box-shadow: 0 20px 60px rgba(0, 224, 255, 0.35);
-}
-
-.button:hover::after,
-.button:focus-visible::after {
-  opacity: 1;
-}
-
-.button:focus-visible {
-  outline: 2px solid rgba(0, 224, 255, 0.65);
-  outline-offset: 4px;
-}
-
-/* =============================================
-   Sections
-   ============================================= */
-.flow {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(4rem, 8vh, 8rem);
-}
-
-.section {
-  position: relative;
-  min-height: min(100vh, 900px);
-  padding: clamp(4rem, 8vw, 6rem) clamp(1.5rem, 7vw, 5rem);
-  display: grid;
-  place-items: center;
-}
-
-.section__inner {
-  width: min(100%, 1080px);
-  margin-inline: auto;
-  display: flex;
-  flex-direction: column;
-  gap: clamp(2rem, 4vh, 3rem);
-}
-
-.section__header {
-  max-width: min(90vw, 800px);
-}
-
-.section__header h2,
-.section__header h3 {
-  font-size: clamp(1.75rem, 2vw + 1rem, 2.75rem);
-  font-weight: 600;
-  margin-bottom: clamp(1rem, 1.5vw, 1.5rem);
-}
-
-.section__header p {
-  font-size: clamp(1rem, 1vw + 0.9rem, 1.3rem);
-  color: rgba(233, 238, 248, 0.78);
-}
-
-.section__card {
-  background: rgba(7, 12, 25, 0.6);
-  border-radius: 20px;
-  border: 1px solid rgba(0, 224, 255, 0.15);
-  padding: clamp(2rem, 3vw, 2.5rem);
-  box-shadow: 0 30px 70px rgba(0, 224, 255, 0.12);
-  max-width: min(90vw, 800px);
-}
-
-.section__card--glass {
-  background: linear-gradient(135deg, rgba(10, 22, 40, 0.65), rgba(17, 36, 68, 0.45));
-}
-
-.section__card h3 {
-  font-size: clamp(1.5rem, 1.5vw + 1rem, 2.2rem);
-  font-weight: 600;
-  margin-bottom: clamp(1rem, 1.2vw, 1.5rem);
-}
-
-.section__card p {
-  font-size: clamp(1rem, 1vw + 0.8rem, 1.2rem);
-  color: rgba(233, 238, 248, 0.82);
-}
-
-.section__split {
-  display: grid;
-  gap: clamp(1.5rem, 4vw, 3rem);
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-}
-
-.values {
-  display: grid;
-  gap: clamp(1rem, 1.5vw, 1.5rem);
-  font-size: clamp(1rem, 1vw + 0.8rem, 1.2rem);
-  max-width: min(90vw, 800px);
-}
-
-.layers {
-  list-style: none;
-  display: grid;
-  gap: clamp(1.5rem, 3vw, 2.5rem);
-  max-width: min(90vw, 800px);
-}
-
-.layers__item {
-  padding: clamp(1.75rem, 3vw, 2.5rem);
-  background: rgba(7, 16, 32, 0.6);
-  border-radius: 18px;
-  border: 1px solid rgba(0, 224, 255, 0.18);
-  box-shadow: 0 24px 60px rgba(0, 224, 255, 0.14);
-}
-
-.layers__item h3 {
-  font-size: clamp(1.35rem, 1.3vw + 1rem, 2rem);
-  font-weight: 600;
-  margin-bottom: clamp(0.75rem, 1vw, 1.25rem);
-}
-
-.layers__item p {
-  font-size: clamp(1rem, 0.9vw + 0.85rem, 1.2rem);
-  color: rgba(233, 238, 248, 0.82);
-}
-
-.security {
-  display: grid;
-  gap: clamp(1.5rem, 3vw, 2.5rem);
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  width: 100%;
-}
-
-.security__item {
-  padding: clamp(1.75rem, 3vw, 2.5rem);
-  background: rgba(6, 12, 26, 0.7);
-  border-radius: 18px;
-  border: 1px solid rgba(0, 224, 255, 0.16);
-  box-shadow: 0 22px 60px rgba(0, 224, 255, 0.13);
-}
-
-.security__item h3 {
-  font-size: clamp(1.35rem, 1.2vw + 1rem, 1.9rem);
-  margin-bottom: clamp(0.75rem, 1vw, 1rem);
-}
-
-.security__item p {
-  font-size: clamp(1rem, 1vw + 0.75rem, 1.2rem);
-  color: rgba(233, 238, 248, 0.8);
-}
-
-/* =============================================
-   Contact
-   ============================================= */
-.section--contact {
-  padding-bottom: clamp(5rem, 10vw, 8rem);
-}
-
-.contact__intro {
-  font-size: clamp(1.05rem, 1.2vw + 0.9rem, 1.35rem);
-  max-width: min(90vw, 760px);
-  color: rgba(233, 238, 248, 0.82);
+.button.button--primary:hover,
+.button.button--primary:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 26px 90px rgba(0, 224, 255, 0.38);
 }
 
 .contact__form {
@@ -376,8 +389,8 @@ svg {
 
 .contact__form input,
 .contact__form textarea {
-  background: rgba(5, 10, 22, 0.7);
-  border: 1px solid rgba(0, 224, 255, 0.18);
+  background: rgba(5, 10, 22, 0.78);
+  border: 1px solid rgba(0, 224, 255, 0.2);
   border-radius: 12px;
   padding: 0.9rem 1.1rem;
   color: var(--text-primary);
@@ -397,100 +410,89 @@ svg {
   color: rgba(233, 238, 248, 0.6);
 }
 
-.contact__footer {
-  display: grid;
-  gap: 1.25rem;
-  margin-top: clamp(3rem, 6vw, 4rem);
-  padding-top: clamp(2rem, 4vw, 3rem);
-  border-top: 1px solid rgba(0, 224, 255, 0.12);
-  max-width: min(90vw, 800px);
+/* =============================================
+   Footer
+   ============================================= */
+.site-footer {
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  text-align: center;
+  padding-top: clamp(4rem, 10vh, 6rem);
+  padding-bottom: clamp(4rem, 10vh, 6rem);
 }
 
-.contact__links {
+.site-footer nav {
   display: flex;
   gap: 1.5rem;
   flex-wrap: wrap;
 }
 
-.contact__links a {
+.site-footer nav a {
   color: rgba(233, 238, 248, 0.78);
   text-decoration: none;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-size: 0.85rem;
   position: relative;
-  padding-bottom: 0.25rem;
+  padding-bottom: 0.2rem;
 }
 
-.contact__links a::after {
+.site-footer nav a::after {
   content: "";
   position: absolute;
   inset: auto 0 0;
   height: 1px;
   background: linear-gradient(90deg, transparent, rgba(0, 224, 255, 0.6), transparent);
-  transform-origin: center;
   transform: scaleX(0);
+  transform-origin: center;
   transition: transform 0.3s ease;
 }
 
-.contact__links a:hover::after,
-.contact__links a:focus-visible::after {
+.site-footer nav a:hover::after,
+.site-footer nav a:focus-visible::after {
   transform: scaleX(1);
-}
-
-.contact__ledger {
-  display: grid;
-  gap: 0.4rem;
-  color: rgba(233, 238, 248, 0.58);
-  font-size: 0.85rem;
-}
-
-/* =============================================
-   Animations + Motion Utilities
-   ============================================= */
-[data-animate] {
-  opacity: 0;
-  transform: translateY(40px);
-}
-
-[data-animate].is-visible {
-  opacity: 1;
-  transform: none;
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-[data-section] {
-  position: relative;
-  isolation: isolate;
 }
 
 /* =============================================
    Media Queries
    ============================================= */
-@media (max-width: 767px) {
-  .hero__inner {
-    padding: clamp(2rem, 8vw, 2.75rem);
+@media (max-width: 900px) {
+  .section-shell {
+    border-radius: 22px;
+    padding: clamp(2.5rem, 6vw, 3.5rem);
   }
 
-  .hero__actions {
-    gap: 0.75rem;
-    width: 100%;
+  .hero__content {
+    padding: clamp(2.5rem, 8vw, 3.5rem);
   }
 
-  .button {
-    flex: 1 1 auto;
-  }
-
-  .section {
-    min-height: 90vh;
+  .trustline {
+    letter-spacing: 0.2em;
   }
 }
 
-@media (min-width: 1440px) {
-  body {
-    font-size: 17px;
+@media (max-width: 640px) {
+  .aegis-logo {
+    position: absolute;
+  }
+
+  section,
+  .site-footer {
+    padding-inline: clamp(1.5rem, 8vw, 2rem);
+  }
+
+  .cta-buttons a {
+    flex: 1 1 100%;
+  }
+
+  .section-divider--cyan {
+    width: 80%;
   }
 }
 
 /* =============================================
-   Accessibility & Motion Preferences
+   Motion Preferences
    ============================================= */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -502,12 +504,22 @@ svg {
     scroll-behavior: auto !important;
   }
 
-  [data-animate] {
+  .fade-in-up {
     opacity: 1 !important;
     transform: none !important;
   }
+}
 
-  .background-system__canvas {
-    display: none !important;
+/* =============================================
+   Keyframes
+   ============================================= */
+@keyframes heroGlow {
+  0% {
+    opacity: 0.35;
+    transform: scale(0.96);
+  }
+  100% {
+    opacity: 0.6;
+    transform: scale(1.05);
   }
 }

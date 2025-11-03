@@ -12,7 +12,7 @@
       }
     }
 
-    initMotion(prefersReducedMotion);
+    initReveal(prefersReducedMotion);
     initAnchors();
   });
 
@@ -25,126 +25,37 @@
       if (!target) return;
       event.preventDefault();
 
-      if (window.ScrollSmoother && window.ScrollSmoother.get()) {
-        window.ScrollSmoother.get().scrollTo(target, true, 'power2.out');
-      } else {
-        target.scrollIntoView({ behavior: 'smooth' });
-      }
+      target.scrollIntoView({ behavior: 'smooth' });
     });
   }
 
-  function initMotion(isReduced) {
-    if (isReduced) {
-      revealFallback();
-      return;
-    }
-
-    if (typeof gsap === 'undefined') {
-      console.warn('GSAP failed to load. Using fallback animations.');
-      revealFallback();
-      return;
-    }
-
-    try {
-      gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
-
-      const smoother = ScrollSmoother.create({
-        wrapper: '#smooth-wrapper',
-        content: '#smooth-content',
-        smooth: 1.2,
-        effects: true,
-        normalizeScroll: true
-      });
-
-      const heroTimeline = gsap.timeline({ delay: 0.4 });
-      heroTimeline
-        .fromTo(
-          '.hero__logo',
-          { opacity: 0, y: 30 },
-          { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' }
-        )
-        .fromTo(
-          '.hero [data-animate]',
-          { opacity: 0, y: 30 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            ease: 'power2.out',
-            stagger: 0.1
-          },
-          '-=0.9'
-        );
-
-      document.querySelectorAll('[data-section]').forEach((section) => {
-        const animateTargets = section.querySelectorAll('.fade-in-up');
-        if (!animateTargets.length) return;
-
-        gsap.fromTo(
-          animateTargets,
-          {
-            opacity: 0,
-            y: 30
-          },
-          {
-            opacity: 1,
-            y: 0,
-            ease: 'power2.out',
-            duration: 0.8,
-            stagger: 0.1,
-            scrollTrigger: {
-              trigger: section,
-              start: 'top 75%',
-              toggleActions: 'play none none reverse'
-            }
-          }
-        );
-
-        ScrollTrigger.create({
-          trigger: section,
-          start: 'top center',
-          end: 'bottom top',
-          onEnter: () => gsap.to(section, { opacity: 1, duration: 0.6 }),
-          onEnterBack: () => gsap.to(section, { opacity: 1, duration: 0.6 }),
-          onLeave: () => gsap.to(section, { opacity: 0.3, duration: 0.6 }),
-          onLeaveBack: () => gsap.to(section, { opacity: 0.3, duration: 0.6 })
-        });
-      });
-
-      if (document.querySelector('.background-system')) {
-        gsap.to('.background-system', {
-          yPercent: -20,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: '#smooth-content',
-            start: 'top top',
-            end: 'bottom bottom',
-            scrub: true
-          }
-        });
-      }
-    } catch (error) {
-      console.warn('Motion initialization failed.', error);
-      revealFallback();
-    }
-  }
-
-  function revealFallback() {
+  function initReveal(isReduced) {
     const elements = document.querySelectorAll('.fade-in-up');
     if (!elements.length) return;
+
+    if (isReduced) {
+      elements.forEach((element) => element.classList.add('visible'));
+      return;
+    }
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
           }
         });
       },
-      { threshold: 0.2 }
+      { threshold: 0.15 }
     );
 
     elements.forEach((element) => observer.observe(element));
+
+    const logo = document.querySelector('.aegis-logo');
+    if (logo) {
+      requestAnimationFrame(() => logo.classList.add('visible'));
+    }
   }
 
   function initEnergyRain() {

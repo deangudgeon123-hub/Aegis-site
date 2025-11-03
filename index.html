@@ -6,7 +6,7 @@
   <title>Aegis — The Governance Layer of Intelligent Finance</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Rajdhani:wght@500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
@@ -16,153 +16,129 @@
     <canvas id="energy-rain" class="background-system__canvas"></canvas>
   </div>
 
+  <div class="aegis-logo fade-in-up">
+    <h1>Aegis</h1>
+    <p>The Safety Layer of Intelligent Finance</p>
+  </div>
+
   <div id="smooth-wrapper">
     <div id="smooth-content">
-      <header class="hero" id="hero">
-        <div class="hero__inner" data-section>
-          <div class="hero__logo fade-in-up" aria-label="Aegis logo">
-            <svg viewBox="0 0 160 160" role="img" aria-hidden="true">
-              <defs>
-                <linearGradient id="aegis-logo-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stop-color="#00E0FF" />
-                  <stop offset="100%" stop-color="#A5B4FC" />
-                </linearGradient>
-              </defs>
-              <circle cx="80" cy="80" r="72" stroke="url(#aegis-logo-gradient)" stroke-width="8" fill="none" />
-              <path d="M80 26L32 60v56l48 34 48-34V60L80 26zm0 16.4l32.4 22.2v40.8L80 117.6 47.6 105.4V64.6L80 42.4z" fill="url(#aegis-logo-gradient)" />
-            </svg>
+      <section class="hero fade-in-up" id="hero">
+        <div class="hero__content">
+          <h2>AI runs the numbers. Aegis guards the truth.</h2>
+          <p>The governance layer of intelligent finance that keeps every automated decision explainable, compliant, and trustworthy.</p>
+
+          <div class="cta-buttons">
+            <a class="primary" href="./demo/index.html" id="hero-demo">Access Demo</a>
+            <a class="secondary" href="#contact" id="hero-waitlist">Join Waitlist</a>
           </div>
-          <p class="hero__tagline fade-in-up" data-animate>Trusted by innovators building transparent and compliant AI systems.</p>
-          <h1 class="hero__title fade-in-up" data-animate>AI runs the numbers. Aegis guards the truth.</h1>
-          <p class="hero__description fade-in-up" data-animate>The governance layer of intelligent finance that keeps every automated decision explainable, compliant, and trustworthy.</p>
-          <div class="hero__actions fade-in-up" data-animate>
-            <a class="button button--primary" href="./demo/index.html" id="hero-demo">Access Demo</a>
-            <a class="button button--secondary" href="#contact" id="hero-waitlist">Join Waitlist</a>
+
+          <p class="trustline">Trusted by innovators building transparent and compliant AI systems.</p>
+        </div>
+      </section>
+
+      <section class="about fade-in-up" id="about">
+        <div class="section-shell">
+          <h3>About Aegis</h3>
+          <p>Aegis is the control system for AI in finance. It helps banks and fintechs keep automation safe, auditable, and accountable.</p>
+          <p>We combine oversight, analytics, and model transparency so every decision can be explained and every risk detected before it becomes a problem.</p>
+
+          <div class="section-divider" aria-hidden="true"></div>
+
+          <h4>Dean Gudgeon, Founder</h4>
+          <blockquote>“I built Aegis to make AI in finance as transparent and accountable as the people who run it.”</blockquote>
+
+          <div class="section-divider" aria-hidden="true"></div>
+
+          <div class="values-grid">
+            <div class="fade-in-up" style="transition-delay: 0.05s">
+              <strong>Integrity</strong>
+              <p>Every decision should be traceable and fair.</p>
+            </div>
+            <div class="fade-in-up" style="transition-delay: 0.15s">
+              <strong>Precision</strong>
+              <p>We focus on clarity, not noise.</p>
+            </div>
+            <div class="fade-in-up" style="transition-delay: 0.25s">
+              <strong>Protection</strong>
+              <p>We protect systems, data, and trust.</p>
+            </div>
           </div>
         </div>
-      </header>
+      </section>
 
-      <main class="flow">
-        <section class="section" id="about">
-          <div class="section__inner" data-section>
-            <div class="section__header fade-in-up" data-animate>
-              <h2>About Aegis</h2>
-              <p>Aegis is the control system for AI in finance. We help banks and fintech innovators keep their automation safe, auditable, and accountable.</p>
+      <section class="systems fade-in-up" id="systems">
+        <div class="section-shell">
+          <h3>Systems Overview</h3>
+          <div class="tech-grid">
+            <div class="fade-in-up" style="transition-delay: 0.05s">
+              <h4>AI Risk Engine</h4>
+              <p>Finds drift, bias, and anomalies in real time to keep models aligned with compliance standards.</p>
             </div>
-            <div class="section__content">
-              <article class="section__card fade-in-up" data-animate>
-                <h3>Built for Clarity</h3>
-                <p>We combine oversight, analytics, and model transparency so every decision can be explained and every risk is spotted before it becomes a problem.</p>
-              </article>
+            <div class="fade-in-up" style="transition-delay: 0.15s">
+              <h4>Safe Layer Integration</h4>
+              <p>Brings explainability and governance directly into daily operations.</p>
+            </div>
+            <div class="fade-in-up" style="transition-delay: 0.25s">
+              <h4>Autonomous Compliance</h4>
+              <p>Creates instant audit trails and reports so institutions always stay ready for review.</p>
             </div>
           </div>
-        </section>
 
-        <section class="section" id="values">
-          <div class="section__inner" data-section>
-            <div class="section__header fade-in-up" data-animate>
-              <h2>Core Values</h2>
-              <p>Our principles keep intelligent finance transparent, fair, and resilient.</p>
-            </div>
-            <div class="values" data-animate>
-              <p class="fade-in-up"><strong>Integrity</strong> – Every decision should be traceable and fair.</p>
-              <p class="fade-in-up"><strong>Precision</strong> – We focus on clarity, not noise.</p>
-              <p class="fade-in-up"><strong>Protection</strong> – Our goal is to protect systems, data, and the trust of everyone who depends on them.</p>
-            </div>
-          </div>
-        </section>
+          <div class="section-divider section-divider--horizontal" aria-hidden="true"></div>
 
-        <section class="section" id="founder">
-          <div class="section__inner" data-section>
-            <article class="section__card section__card--glass fade-in-up" data-animate>
-              <h2>The Founder</h2>
-              <p>Dean Gudgeon built Aegis after seeing how automation in finance can create invisible risks. His goal is simple: make AI in banking and fintech as transparent and accountable as the people who run it.</p>
-            </article>
-          </div>
-        </section>
-
-        <section class="section" id="technology">
-          <div class="section__inner" data-section>
-            <div class="section__header fade-in-up" data-animate>
-              <h2>Technology Blueprint</h2>
-              <p>Aegis works with your existing infrastructure, adding intelligence and transparency where it’s needed most.</p>
+          <div class="security-grid">
+            <div class="fade-in-up" style="transition-delay: 0.05s">
+              <h4>Encryption Layers</h4>
+              <p>All data is encrypted from end to end.</p>
             </div>
-            <ul class="layers">
-              <li class="layers__item fade-in-up" data-animate>
-                <h3>AI Risk Engine</h3>
-                <p>Finds drift, bias, and anomalies in real time to keep models aligned with compliance standards.</p>
-              </li>
-              <li class="layers__item fade-in-up" data-animate>
-                <h3>Safe Layer Integration</h3>
-                <p>Brings explainability and governance directly into daily operations.</p>
-              </li>
-              <li class="layers__item fade-in-up" data-animate>
-                <h3>Autonomous Compliance</h3>
-                <p>Creates instant audit trails and reports so institutions always stay ready for review.</p>
-              </li>
-            </ul>
-          </div>
-        </section>
-
-        <section class="section" id="security">
-          <div class="section__inner" data-section>
-            <div class="section__header fade-in-up" data-animate>
-              <h2>Security Doctrine</h2>
-              <p>Aegis is secured for financial-grade performance. Data is encrypted from end to end, every action is logged, and every model remains under human oversight. Nothing operates in the dark. Everything is accountable.</p>
+            <div class="fade-in-up" style="transition-delay: 0.15s">
+              <h4>Data Governance</h4>
+              <p>Continuous logging and audit-ready compliance tracking.</p>
             </div>
-            <div class="security" role="list">
-              <article class="security__item fade-in-up" data-animate>
-                <h3>Encryption Layers</h3>
-                <p>Data stays encrypted end to end so confidentiality holds at every transaction.</p>
-              </article>
-              <article class="security__item fade-in-up" data-animate>
-                <h3>Data Governance</h3>
-                <p>Every action is logged and auditable, preserving lineage and compliance across global standards.</p>
-              </article>
-              <article class="security__item fade-in-up" data-animate>
-                <h3>Human Oversight</h3>
-                <p>Human-in-the-loop controls keep automation accountable and aligned with institutional authority.</p>
-              </article>
+            <div class="fade-in-up" style="transition-delay: 0.25s">
+              <h4>Human Oversight</h4>
+              <p>Every AI action remains under accountable human supervision.</p>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <section class="section section--contact" id="contact">
-          <div class="section__inner" data-section>
-            <p class="contact__intro fade-in-up" data-animate>If you’d like to see Aegis in action or discuss collaboration, send us a message below. We usually reply within one business day.</p>
-            <form class="contact__form fade-in-up" action="#" method="post" novalidate data-animate>
-              <label for="contact-name">Name
-                <input id="contact-name" name="name" type="text" placeholder="Your name" />
-              </label>
-              <label for="contact-email">Email
-                <input id="contact-email" name="email" type="email" placeholder="name@example.com" />
-              </label>
-              <label for="contact-message">Message
-                <textarea id="contact-message" name="message" rows="4" placeholder="Your enquiry"></textarea>
-              </label>
-              <button type="submit" class="button button--primary">Submit</button>
-              <small>We typically reply within one business day.</small>
-            </form>
-            <footer class="contact__footer fade-in-up" data-animate>
-              <p>Aegis – The governance layer of intelligent finance.</p>
-              <nav class="contact__links" aria-label="Aegis network links">
-                <a href="#">GitHub</a>
-                <a href="#">YC</a>
-                <a href="#">Contact</a>
-              </nav>
-              <div class="contact__ledger">
-                <p>© 2025 Aegis – Trust the Shield. All rights reserved.</p>
-              </div>
-            </footer>
-          </div>
-        </section>
-      </main>
+      <div class="section-divider section-divider--cyan" aria-hidden="true"></div>
+
+      <section class="contact fade-in-up" id="contact">
+        <div class="section-shell">
+          <h3>Connect with Aegis</h3>
+          <p>If you’d like to see Aegis in action or discuss collaboration, send us a message below. We usually reply within one business day.</p>
+
+          <form class="contact__form" action="#" method="post" novalidate>
+            <label for="contact-name">Name
+              <input id="contact-name" name="name" type="text" placeholder="Your name" />
+            </label>
+            <label for="contact-email">Email
+              <input id="contact-email" name="email" type="email" placeholder="name@example.com" />
+            </label>
+            <label for="contact-message">Message
+              <textarea id="contact-message" name="message" rows="4" placeholder="Your enquiry"></textarea>
+            </label>
+            <button type="submit" class="button button--primary">Submit</button>
+            <small>We typically reply within one business day.</small>
+          </form>
+        </div>
+      </section>
+
+      <footer class="site-footer fade-in-up">
+        <p>Aegis — The governance layer of intelligent finance.</p>
+        <nav aria-label="Aegis network links">
+          <a href="#">GitHub</a>
+          <a href="#">YC</a>
+          <a href="#">Contact</a>
+        </nav>
+        <p>© 2025 Aegis — Trust the Shield. All rights reserved.</p>
+      </footer>
     </div>
   </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha512-b2JdePPGjBJOCa/MEGLjm+rXhN3kLBXjg5eQof8RP4eAbOe+tfLOcAfeUOLuO/HEdBDEuDfSU/EYEYVplpXglA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" integrity="sha512-qSUdkGFUTkOcJCIZy9FHn5Vf3L7hIwrKyYVJZZzKzbwQ6vurIWBLL8GMDIS9ZhDJW60Trw7O3cu6UytzszbmWg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollSmoother.min.js" integrity="sha512-xC5teLoI0lp4rWuIwoMvVJE9idh+NangNh4tW7x1YgnSUZXoqBYwygJyI072QtdgQXl3k5ufADG7n2AFD+a83g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="./main.js" defer></script>
 </body>
 </html>
