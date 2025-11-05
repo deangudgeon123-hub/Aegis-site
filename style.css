@@ -473,6 +473,23 @@ blockquote {
   color: rgba(233, 238, 248, 0.6);
 }
 
+.contact__feedback {
+  min-height: 1.3rem;
+  margin: -0.25rem 0 0;
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+  color: rgba(233, 238, 248, 0.78);
+  transition: color 0.3s ease, opacity 0.3s ease;
+}
+
+.contact__feedback--success {
+  color: rgba(102, 255, 214, 0.85);
+}
+
+.contact__feedback--error {
+  color: rgba(255, 120, 142, 0.85);
+}
+
 /* =============================================
    Footer
    ============================================= */
@@ -489,6 +506,7 @@ blockquote {
   display: flex;
   gap: 1.5rem;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .site-footer nav a {
@@ -510,6 +528,11 @@ blockquote {
   transform: scaleX(0);
   transform-origin: center;
   transition: transform 0.3s ease;
+}
+
+.site-footer nav a:hover,
+.site-footer nav a:focus-visible {
+  color: rgba(233, 238, 248, 0.92);
 }
 
 .site-footer nav a:hover::after,

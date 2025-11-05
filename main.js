@@ -14,6 +14,7 @@
 
     initReveal(prefersReducedMotion);
     initAnchors();
+    initContactForm();
   });
 
   function initAnchors() {
@@ -26,6 +27,84 @@
       event.preventDefault();
 
       target.scrollIntoView({ behavior: 'smooth' });
+    });
+  }
+
+  function initContactForm() {
+    const form = document.getElementById('contact-form');
+    if (!form) return;
+
+    const endpoint = 'https://formsubmit.co/ajax/contact@aegiswallet.co.uk';
+    const feedback = form.querySelector('.contact__feedback');
+    const submitButton = form.querySelector('button[type="submit"]');
+
+    function setFeedback(message, state) {
+      if (!feedback) return;
+      feedback.textContent = message;
+      feedback.classList.remove('contact__feedback--success', 'contact__feedback--error');
+      if (state) {
+        feedback.classList.add(`contact__feedback--${state}`);
+      }
+    }
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      if (typeof form.checkValidity === 'function' && !form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      if (form.dataset.submitting === 'true') {
+        return;
+      }
+
+      form.dataset.submitting = 'true';
+      if (submitButton) {
+        submitButton.setAttribute('aria-busy', 'true');
+      }
+      setFeedback('', null);
+
+      const formData = new FormData(form);
+      const payload = {
+        name: formData.get('name') ? String(formData.get('name')).trim() : '',
+        email: formData.get('email') ? String(formData.get('email')).trim() : '',
+        message: formData.get('message') ? String(formData.get('message')).trim() : '',
+        _replyto: formData.get('email') ? String(formData.get('email')).trim() : '',
+        _subject: 'New Aegis website enquiry',
+        _template: 'table'
+      };
+
+      try {
+        const response = await fetch(endpoint, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json'
+          },
+          body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+          throw new Error('Request failed');
+        }
+
+        const result = await response.json();
+        if (!result || (result.success !== 'true' && result.success !== true)) {
+          throw new Error('Unexpected response');
+        }
+
+        form.reset();
+        setFeedback("Message sent successfully. We'll reply within one business day.", 'success');
+      } catch (error) {
+        console.error(error);
+        setFeedback('Something went wrong. Please try again.', 'error');
+      } finally {
+        delete form.dataset.submitting;
+        if (submitButton) {
+          submitButton.removeAttribute('aria-busy');
+        }
+      }
     });
   }
 

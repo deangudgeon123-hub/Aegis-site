@@ -129,17 +129,22 @@
           <h3>Connect with Aegis</h3>
           <p>If you would like to see Aegis in action or discuss collaboration, send us a message below. We usually reply within one business day.</p>
 
-          <form class="contact__form" action="#" method="post" novalidate>
+          <form class="contact__form" id="contact-form" action="https://formsubmit.co/contact@aegiswallet.co.uk" method="post" novalidate>
+            <input type="hidden" name="_formsubmit_id" value="" />
+            <input type="hidden" name="_captcha" value="false" />
+            <input type="hidden" name="_template" value="table" />
+            <input type="hidden" name="_subject" value="New Aegis website enquiry" />
             <label for="contact-name">Name
-              <input id="contact-name" name="name" type="text" placeholder="Your name" />
+              <input id="contact-name" name="name" type="text" placeholder="Your name" required />
             </label>
             <label for="contact-email">Email
-              <input id="contact-email" name="email" type="email" placeholder="name@example.com" />
+              <input id="contact-email" name="email" type="email" placeholder="name@example.com" required />
             </label>
             <label for="contact-message">Message
-              <textarea id="contact-message" name="message" rows="4" placeholder="Your enquiry"></textarea>
+              <textarea id="contact-message" name="message" rows="4" placeholder="Your enquiry" required></textarea>
             </label>
             <button type="submit" class="button button--primary">Submit</button>
+            <p class="contact__feedback" role="status" aria-live="polite"></p>
             <small>We typically reply within one business day.</small>
           </form>
         </div>
@@ -147,9 +152,9 @@
 
       <footer class="site-footer fade-in-up">
         <nav aria-label="Aegis network links">
-          <a href="#">GitHub</a>
-          <a href="#">YC</a>
-          <a href="#">Contact</a>
+          <a href="mailto:contact@aegiswallet.co.uk">Contact</a>
+          <a href="https://github.com/deangudgeon123-hub" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href="https://www.linkedin.com/in/dean-gudgeon-b186551a3" target="_blank" rel="noopener noreferrer">LinkedIn</a>
         </nav>
         <p>Built on the same principles driving the next wave of AI compliance leaders such as Adaptive Security, Rulebase, and Anrok, Aegis stands as the trust layer for AI driven finance.</p>
         <p>© 2025 Aegis. Trust the Shield. All rights reserved.</p>
