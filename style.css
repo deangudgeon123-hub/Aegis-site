@@ -366,21 +366,20 @@ blockquote {
   color: rgba(233, 238, 248, 0.88);
 }
 
-.blueprint-narrative p {
-  margin: 0;
+.blueprint-feature-block {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.35rem, 0.5vw, 0.6rem);
 }
 
-.blueprint-narrative p + p {
-  padding-top: clamp(0.8rem, 0.6vw + 0.7rem, 1.2rem);
-  border-top: 1px solid rgba(0, 224, 255, 0.14);
-}
-
-.blueprint-feature {
-  display: inline-block;
-  margin-right: 0.4rem;
-  font-weight: 600;
+.blueprint-feature-title {
+  font-weight: 700;
   letter-spacing: 0.04em;
   color: var(--accent-start);
+}
+
+.blueprint-feature-block p {
+  margin: 0;
 }
 
 @media (max-width: 960px) {
@@ -400,6 +399,10 @@ blockquote {
   .blueprint-narrative {
     line-height: 1.85;
     gap: clamp(1.1rem, 4vw, 1.5rem);
+  }
+
+  .blueprint-feature-title {
+    letter-spacing: 0.03em;
   }
 }
 

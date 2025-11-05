@@ -303,24 +303,23 @@ svg {
   box-shadow: 0 32px 100px rgba(0, 224, 255, 0.18);
 }
 
-.layers--narrative p {
+.layers__feature-block {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.35rem, 0.6vw, 0.65rem);
+}
+
+.layers__feature-title {
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--accent-start);
+}
+
+.layers__feature-block p {
   margin: 0;
   font-size: clamp(1.05rem, 1vw + 0.9rem, 1.25rem);
   line-height: 1.85;
   color: rgba(233, 238, 248, 0.86);
-}
-
-.layers--narrative p + p {
-  padding-top: clamp(0.85rem, 0.8vw + 0.7rem, 1.2rem);
-  border-top: 1px solid rgba(0, 224, 255, 0.16);
-}
-
-.layers__feature {
-  display: inline-block;
-  margin-right: 0.45rem;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  color: var(--accent-start);
 }
 
 @media (max-width: 640px) {
@@ -330,8 +329,12 @@ svg {
     gap: clamp(1.1rem, 5vw, 1.6rem);
   }
 
-  .layers--narrative p {
+  .layers__feature-block p {
     line-height: 1.8;
+  }
+
+  .layers__feature-title {
+    letter-spacing: 0.04em;
   }
 }
 
