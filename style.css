@@ -331,8 +331,8 @@ blockquote {
 
 .blueprint-structure {
   position: relative;
-  display: grid;
-  gap: clamp(1.5rem, 2.5vw, 2.5rem);
+  display: flex;
+  justify-content: flex-start;
   padding: clamp(2rem, 3vw, 3rem);
   border-radius: 26px;
   overflow: hidden;
@@ -354,142 +354,52 @@ blockquote {
   z-index: 0;
 }
 
-.blueprint-tier {
+.blueprint-narrative {
   position: relative;
+  z-index: 1;
   display: grid;
-  gap: clamp(1.25rem, 2vw, 2rem);
-  z-index: 1;
+  gap: clamp(1.4rem, 1.2vw + 1rem, 2rem);
+  max-width: 720px;
+  text-align: left;
+  line-height: 1.9;
+  font-size: clamp(1.05rem, 0.9vw + 0.95rem, 1.25rem);
+  color: rgba(233, 238, 248, 0.88);
 }
 
-.blueprint-tier--feature {
-  grid-template-columns: 1fr;
+.blueprint-narrative p {
+  margin: 0;
 }
 
-.blueprint-tier--dual {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+.blueprint-narrative p + p {
+  padding-top: clamp(0.8rem, 0.6vw + 0.7rem, 1.2rem);
+  border-top: 1px solid rgba(0, 224, 255, 0.14);
 }
 
-.blueprint-tier--triple {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
-.blueprint-card {
-  position: relative;
-  background: rgba(7, 14, 28, 0.82);
-  border: 1px solid rgba(0, 224, 255, 0.2);
-  border-radius: 22px;
-  padding: clamp(1.75rem, 2.4vw, 2.5rem);
-  box-shadow: 0 28px 90px rgba(0, 224, 255, 0.14);
-  backdrop-filter: blur(14px);
-  transition: border-color 0.4s ease, box-shadow 0.4s ease;
-}
-
-.blueprint-card::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  border: 1px solid rgba(0, 224, 255, 0.12);
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  pointer-events: none;
-}
-
-.blueprint-card:hover,
-.blueprint-card:focus-within {
-  border-color: rgba(0, 224, 255, 0.38);
-  box-shadow: 0 40px 120px rgba(0, 224, 255, 0.2);
-}
-
-.blueprint-card:hover::after,
-.blueprint-card:focus-within::after {
-  opacity: 1;
-}
-
-.blueprint-card--feature {
-  padding: clamp(2.4rem, 3vw, 3rem);
-  border-width: 1.5px;
-  box-shadow: 0 36px 140px rgba(0, 224, 255, 0.24);
-}
-
-.blueprint-connector {
-  position: relative;
-  height: clamp(2.5rem, 6vh, 3.5rem);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1;
-}
-
-.blueprint-connector::before,
-.blueprint-connector::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  pointer-events: none;
-}
-
-.blueprint-connector::before {
-  width: 2px;
-  height: 100%;
-  background: linear-gradient(180deg, transparent, rgba(0, 224, 255, 0.7), transparent);
-  box-shadow: 0 0 18px rgba(0, 224, 255, 0.32);
-}
-
-.blueprint-connector::after {
-  width: clamp(120px, 40%, 320px);
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(0, 224, 255, 0.65), transparent);
-  opacity: 0.75;
-  box-shadow: 0 0 12px rgba(0, 224, 255, 0.24);
-}
-
-.blueprint-connector--feature::after {
-  width: clamp(160px, 45%, 380px);
-}
-
-.blueprint-connector--secondary::before {
-  background: linear-gradient(180deg, transparent, rgba(0, 183, 255, 0.65), transparent);
-}
-
-.blueprint-connector--secondary::after {
-  opacity: 0.6;
-}
-
-.blueprint-card h4 {
-  font-size: clamp(1.3rem, 1.4vw + 1rem, 2rem);
-  margin-bottom: clamp(0.9rem, 1.4vw, 1.35rem);
-}
-
-.blueprint-card p {
-  color: rgba(233, 238, 248, 0.82);
-  font-size: clamp(1rem, 0.9vw + 0.9rem, 1.15rem);
+.blueprint-feature {
+  display: inline-block;
+  margin-right: 0.4rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--accent-start);
 }
 
 @media (max-width: 960px) {
-  .blueprint-tier--dual {
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  }
-
-  .blueprint-tier--triple {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  .blueprint-narrative {
+    max-width: 100%;
+    font-size: clamp(1.02rem, 1vw + 0.98rem, 1.18rem);
+    gap: clamp(1.2rem, 3vw, 1.6rem);
   }
 }
 
 @media (max-width: 640px) {
   .blueprint-structure {
-    padding: clamp(1.75rem, 4vw, 2rem);
+    padding: clamp(1.75rem, 4vw, 2.2rem);
     border-radius: 22px;
   }
 
-  .blueprint-tier--dual,
-  .blueprint-tier--triple {
-    grid-template-columns: 1fr;
-  }
-
-  .blueprint-connector::after {
-    width: 55%;
+  .blueprint-narrative {
+    line-height: 1.85;
+    gap: clamp(1.1rem, 4vw, 1.5rem);
   }
 }
 
