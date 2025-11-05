@@ -288,28 +288,51 @@ svg {
 
 .layers {
   list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.layers--narrative {
   display: grid;
-  gap: clamp(1.5rem, 3vw, 2.5rem);
-  max-width: min(90vw, 800px);
+  gap: clamp(1.4rem, 2.5vw, 2.2rem);
+  max-width: min(90vw, 780px);
+  padding: clamp(2rem, 3vw, 2.8rem);
+  background: rgba(7, 16, 32, 0.38);
+  border-radius: 20px;
+  border: 1px solid rgba(0, 224, 255, 0.2);
+  box-shadow: 0 32px 100px rgba(0, 224, 255, 0.18);
 }
 
-.layers__item {
-  padding: clamp(1.75rem, 3vw, 2.5rem);
-  background: rgba(7, 16, 32, 0.6);
-  border-radius: 18px;
-  border: 1px solid rgba(0, 224, 255, 0.18);
-  box-shadow: 0 24px 60px rgba(0, 224, 255, 0.14);
+.layers--narrative p {
+  margin: 0;
+  font-size: clamp(1.05rem, 1vw + 0.9rem, 1.25rem);
+  line-height: 1.85;
+  color: rgba(233, 238, 248, 0.86);
 }
 
-.layers__item h3 {
-  font-size: clamp(1.35rem, 1.3vw + 1rem, 2rem);
+.layers--narrative p + p {
+  padding-top: clamp(0.85rem, 0.8vw + 0.7rem, 1.2rem);
+  border-top: 1px solid rgba(0, 224, 255, 0.16);
+}
+
+.layers__feature {
+  display: inline-block;
+  margin-right: 0.45rem;
   font-weight: 600;
-  margin-bottom: clamp(0.75rem, 1vw, 1.25rem);
+  letter-spacing: 0.05em;
+  color: var(--accent-start);
 }
 
-.layers__item p {
-  font-size: clamp(1rem, 0.9vw + 0.85rem, 1.2rem);
-  color: rgba(233, 238, 248, 0.82);
+@media (max-width: 640px) {
+  .layers--narrative {
+    padding: clamp(1.6rem, 6vw, 2.2rem);
+    border-radius: 18px;
+    gap: clamp(1.1rem, 5vw, 1.6rem);
+  }
+
+  .layers--narrative p {
+    line-height: 1.8;
+  }
 }
 
 .security {
