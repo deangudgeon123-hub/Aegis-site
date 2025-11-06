@@ -438,9 +438,19 @@ blockquote {
 }
 
 .contact__form {
+  position: relative;
   display: grid;
   gap: 1.5rem;
   width: min(100%, 600px);
+}
+
+.contact__honeypot {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .contact__form label {
@@ -459,6 +469,13 @@ blockquote {
   color: var(--text-primary);
   font-size: 1rem;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contact__form button[disabled] {
+  cursor: not-allowed;
+  opacity: 0.68;
+  transform: none;
+  box-shadow: 0 12px 42px rgba(0, 224, 255, 0.24);
 }
 
 .contact__form input:focus,
@@ -496,9 +513,9 @@ blockquote {
 .site-footer {
   flex-direction: column;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1.25rem;
   text-align: center;
-  padding-top: clamp(4rem, 10vh, 6rem);
+  padding-top: clamp(4rem, 10vh, 5.5rem);
   padding-bottom: clamp(4rem, 10vh, 6rem);
 }
 

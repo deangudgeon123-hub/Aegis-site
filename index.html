@@ -30,7 +30,7 @@
 
           <div class="cta-buttons">
             <a class="primary" href="https://dash.aegiswallet.co.uk" target="_blank" id="hero-demo">Access Demo</a>
-            <a class="secondary" href="#contact" id="hero-waitlist">Join Waitlist</a>
+            <a class="secondary" href="#contact" id="hero-waitlist" data-scroll-target="contact">Join Waitlist</a>
           </div>
 
         </div>
@@ -129,11 +129,20 @@
           <h3>Connect with Aegis</h3>
           <p>If you would like to see Aegis in action or discuss collaboration, send us a message below. We usually reply within one business day.</p>
 
-          <form class="contact__form" id="contact-form" action="https://formsubmit.co/contact@aegiswallet.co.uk" method="post" novalidate>
-            <input type="hidden" name="_formsubmit_id" value="" />
-            <input type="hidden" name="_captcha" value="false" />
-            <input type="hidden" name="_template" value="table" />
-            <input type="hidden" name="_subject" value="New Aegis website enquiry" />
+          <form
+            class="contact__form"
+            id="contact-form"
+            novalidate
+            data-emailjs-service="service_aegis_contact"
+            data-emailjs-template="template_aegis_contact"
+            data-emailjs-public-key="hX1cMZ7X9jZ_JK0T7"
+            data-emailjs-to-email="dean.gudgeon@zohomail.eu"
+            data-emailjs-from-email="contact@aegiswallet.co.uk"
+          >
+            <label class="contact__honeypot" for="contact-company" aria-hidden="true">
+              Company
+              <input id="contact-company" type="text" name="company" tabindex="-1" autocomplete="off" />
+            </label>
             <label for="contact-name">Name
               <input id="contact-name" name="name" type="text" placeholder="Your name" required />
             </label>
@@ -152,11 +161,10 @@
 
       <footer class="site-footer fade-in-up">
         <nav aria-label="Aegis network links">
-          <a href="mailto:contact@aegiswallet.co.uk">Contact</a>
+          <a href="#contact" data-scroll-target="contact">Contact</a>
           <a href="https://github.com/deangudgeon123-hub" target="_blank" rel="noopener noreferrer">GitHub</a>
           <a href="https://www.linkedin.com/in/dean-gudgeon-b186551a3" target="_blank" rel="noopener noreferrer">LinkedIn</a>
         </nav>
-        <p>Built on the same principles driving the next wave of AI compliance leaders such as Adaptive Security, Rulebase, and Anrok, Aegis stands as the trust layer for AI driven finance.</p>
         <p>© 2025 Aegis. Trust the Shield. All rights reserved.</p>
       </footer>
     </div>
