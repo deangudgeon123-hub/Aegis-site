@@ -18,15 +18,19 @@
   });
 
   function initAnchors() {
-    const waitlist = document.getElementById('hero-waitlist');
-    if (!waitlist) return;
+    const anchors = document.querySelectorAll('[data-scroll-target]');
+    if (!anchors.length) return;
 
-    waitlist.addEventListener('click', (event) => {
-      const target = document.getElementById('contact');
-      if (!target) return;
-      event.preventDefault();
+    anchors.forEach((anchor) => {
+      const targetId = anchor.getAttribute('data-scroll-target');
+      if (!targetId) return;
 
-      target.scrollIntoView({ behavior: 'smooth' });
+      anchor.addEventListener('click', (event) => {
+        const target = document.getElementById(targetId);
+        if (!target) return;
+        event.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth' });
+      });
     });
   }
 
@@ -34,9 +38,14 @@
     const form = document.getElementById('contact-form');
     if (!form) return;
 
-    const endpoint = 'https://formsubmit.co/ajax/contact@aegiswallet.co.uk';
     const feedback = form.querySelector('.contact__feedback');
     const submitButton = form.querySelector('button[type="submit"]');
+    const honeypot = form.querySelector('input[name="company"]');
+    const serviceId = form.dataset.emailjsService || '';
+    const templateId = form.dataset.emailjsTemplate || '';
+    const publicKey = form.dataset.emailjsPublicKey || '';
+    const toEmail = form.dataset.emailjsToEmail || '';
+    const fromEmail = form.dataset.emailjsFromEmail || '';
 
     function setFeedback(message, state) {
       if (!feedback) return;
@@ -59,9 +68,22 @@
         return;
       }
 
+      if (honeypot && honeypot.value.trim().length > 0) {
+        form.reset();
+        return;
+      }
+
+      if (!serviceId || !templateId || !publicKey || !toEmail || !fromEmail) {
+        console.error('EmailJS configuration is incomplete.');
+        setFeedback('⚠️ Something went wrong. Please try again.', 'error');
+        return;
+      }
+
       form.dataset.submitting = 'true';
       if (submitButton) {
         submitButton.setAttribute('aria-busy', 'true');
+        submitButton.setAttribute('aria-disabled', 'true');
+        submitButton.disabled = true;
       }
       setFeedback('', null);
 
@@ -70,39 +92,46 @@
         name: formData.get('name') ? String(formData.get('name')).trim() : '',
         email: formData.get('email') ? String(formData.get('email')).trim() : '',
         message: formData.get('message') ? String(formData.get('message')).trim() : '',
-        _replyto: formData.get('email') ? String(formData.get('email')).trim() : '',
-        _subject: 'New Aegis website enquiry',
-        _template: 'table'
+        reply_to: formData.get('email') ? String(formData.get('email')).trim() : ''
       };
 
       try {
-        const response = await fetch(endpoint, {
+        const response = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
             Accept: 'application/json'
           },
-          body: JSON.stringify(payload)
+          body: JSON.stringify({
+            service_id: serviceId,
+            template_id: templateId,
+            user_id: publicKey,
+            template_params: {
+              from_name: payload.name,
+              from_email: payload.email,
+              reply_to: payload.reply_to,
+              message: payload.message,
+              to_email: toEmail,
+              routing_email: fromEmail
+            }
+          })
         });
 
         if (!response.ok) {
           throw new Error('Request failed');
         }
 
-        const result = await response.json();
-        if (!result || (result.success !== 'true' && result.success !== true)) {
-          throw new Error('Unexpected response');
-        }
-
         form.reset();
-        setFeedback("Message sent successfully. We'll reply within one business day.", 'success');
+        setFeedback('✅ Message sent successfully — we’ll reply within one business day.', 'success');
       } catch (error) {
         console.error(error);
-        setFeedback('Something went wrong. Please try again.', 'error');
+        setFeedback('⚠️ Something went wrong. Please try again.', 'error');
       } finally {
         delete form.dataset.submitting;
         if (submitButton) {
           submitButton.removeAttribute('aria-busy');
+          submitButton.removeAttribute('aria-disabled');
+          submitButton.disabled = false;
         }
       }
     });
