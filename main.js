@@ -38,7 +38,7 @@
     const form = document.getElementById('contact-form');
     if (!form) return;
 
-    const feedback = form.querySelector('.contact__feedback');
+    const feedback = form.querySelector('.contact-feedback');
     const submitButton = form.querySelector('button[type="submit"]');
     const honeypot = form.querySelector('input[name="website"]');
     const serviceId = form.dataset.emailjsService || '';
@@ -50,9 +50,9 @@
     function setFeedback(message, state) {
       if (!feedback) return;
       feedback.textContent = message;
-      feedback.classList.remove('contact__feedback--success', 'contact__feedback--error');
+      feedback.classList.remove('contact-feedback--success', 'contact-feedback--error');
       if (state) {
-        feedback.classList.add(`contact__feedback--${state}`);
+        feedback.classList.add(`contact-feedback--${state}`);
       }
     }
 
