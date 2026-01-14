@@ -183,7 +183,7 @@
     const canvas = document.getElementById('energy-rain');
     if (!canvas) return;
     const context = canvas.getContext('2d');
-    const devicePixelRatio = window.devicePixelRatio || 1;
+    const devicePixelRatio = Math.min(window.devicePixelRatio || 1, 2);
     let width = 0;
     let height = 0;
     let animationFrame;
