@@ -69,7 +69,7 @@
       }
 
       if (honeypot && honeypot.value.trim().length > 0) {
-        form.reset();
+        setFeedback('Submission rejected.', 'error');
         return;
       }
 
@@ -86,7 +86,7 @@
         name: formData.get('name') ? String(formData.get('name')).trim() : '',
         company: formData.get('company') ? String(formData.get('company')).trim() : '',
         email: formData.get('email') ? String(formData.get('email')).trim() : '',
-        aiUse: formData.get('aiUse') ? String(formData.get('aiUse')).trim() : '',
+        message: formData.get('message') ? String(formData.get('message')).trim() : '',
         reply_to: formData.get('email') ? String(formData.get('email')).trim() : ''
       };
 
@@ -97,7 +97,7 @@
 
         const formattedMessage = [
           `Company: ${payload.company || 'Not provided'}`,
-          `AI use: ${payload.aiUse || 'Not provided'}`
+          `Message: ${payload.message || 'Not provided'}`
         ].join('\n');
 
         const response = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
@@ -126,16 +126,16 @@
         }
 
         form.reset();
-        setFeedback('✅ Message sent successfully — we’ll reply within one business day.', 'success');
+        setFeedback('✅ Message sent successfully. We will reply within one business day.', 'success');
       } catch (error) {
         console.error(error);
         if (toEmail) {
           const subject = encodeURIComponent('Pilot audit request');
           const body = encodeURIComponent(
-            `Name: ${payload.name}\nCompany: ${payload.company}\nEmail: ${payload.email}\nAI use: ${payload.aiUse}`
+            `Name: ${payload.name}\nCompany: ${payload.company}\nEmail: ${payload.email}\nMessage: ${payload.message}`
           );
           window.location.href = `mailto:${toEmail}?subject=${subject}&body=${body}`;
-          setFeedback('✅ Mail draft prepared — send to complete your request.', 'success');
+          setFeedback('✅ Mail draft prepared. Send to complete your request.', 'success');
         } else {
           setFeedback('⚠️ Something went wrong. Please try again.', 'error');
         }
