@@ -107,7 +107,7 @@ svg {
   color: rgba(233, 238, 248, 0.9);
 }
 
-.aegis-logo h1 {
+.aegis-logo__title {
   font-size: 1.4rem;
   font-weight: 600;
 }
@@ -183,7 +183,7 @@ section.hero {
   box-shadow: 0 32px 120px rgba(0, 224, 255, 0.18);
 }
 
-.hero h2 {
+.hero h1 {
   font-size: clamp(2.3rem, 3vw + 1.5rem, 4rem);
   font-weight: 600;
   line-height: 1.15;
@@ -245,32 +245,76 @@ section.hero {
 /* =============================================
    Section Styling
    ============================================= */
-.about .section-shell,
-.systems .section-shell,
+.content-section .section-shell,
 .contact .section-shell {
   gap: clamp(1.5rem, 2vw, 2.5rem);
 }
 
-.about h3,
-.systems h3,
-.contact h3 {
+.content-section h2,
+.contact h2 {
   font-size: clamp(1.9rem, 2.2vw + 1rem, 2.8rem);
   font-weight: 600;
 }
 
-.about h4,
-.systems h4 {
-  font-size: clamp(1.35rem, 1.5vw + 1rem, 2.1rem);
-  font-weight: 600;
-}
-
-.about p,
-.systems p,
+.content-section p,
 .contact p,
 .site-footer p,
 .values-grid p {
   color: rgba(233, 238, 248, 0.8);
   font-size: clamp(1rem, 1vw + 0.85rem, 1.2rem);
+}
+
+.content-list,
+.step-list {
+  list-style: none;
+  display: grid;
+  gap: 0.85rem;
+  padding: 0;
+  margin: 0;
+}
+
+.content-list li,
+.step-list li {
+  position: relative;
+  padding-left: 1.9rem;
+  color: rgba(233, 238, 248, 0.85);
+  font-size: clamp(1rem, 1vw + 0.85rem, 1.2rem);
+}
+
+.content-list li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--accent-start);
+  font-size: 1.3rem;
+  line-height: 1.2;
+}
+
+.step-list {
+  counter-reset: step;
+}
+
+.step-list li {
+  counter-increment: step;
+  padding-left: 2.5rem;
+}
+
+.step-list li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: 0.1rem;
+  width: 1.7rem;
+  height: 1.7rem;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #05070f;
+  background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+  box-shadow: 0 12px 30px rgba(0, 224, 255, 0.25);
 }
 
 blockquote {

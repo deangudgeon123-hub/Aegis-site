@@ -40,7 +40,7 @@
 
     const feedback = form.querySelector('.contact__feedback');
     const submitButton = form.querySelector('button[type="submit"]');
-    const honeypot = form.querySelector('input[name="company"]');
+    const honeypot = form.querySelector('input[name="website"]');
     const serviceId = form.dataset.emailjsService || '';
     const templateId = form.dataset.emailjsTemplate || '';
     const publicKey = form.dataset.emailjsPublicKey || '';
@@ -73,12 +73,6 @@
         return;
       }
 
-      if (!serviceId || !templateId || !publicKey || !toEmail || !fromEmail) {
-        console.error('EmailJS configuration is incomplete.');
-        setFeedback('⚠️ Something went wrong. Please try again.', 'error');
-        return;
-      }
-
       form.dataset.submitting = 'true';
       if (submitButton) {
         submitButton.setAttribute('aria-busy', 'true');
@@ -90,12 +84,22 @@
       const formData = new FormData(form);
       const payload = {
         name: formData.get('name') ? String(formData.get('name')).trim() : '',
+        company: formData.get('company') ? String(formData.get('company')).trim() : '',
         email: formData.get('email') ? String(formData.get('email')).trim() : '',
-        message: formData.get('message') ? String(formData.get('message')).trim() : '',
+        aiUse: formData.get('aiUse') ? String(formData.get('aiUse')).trim() : '',
         reply_to: formData.get('email') ? String(formData.get('email')).trim() : ''
       };
 
       try {
+        if (!serviceId || !templateId || !publicKey || !toEmail || !fromEmail) {
+          throw new Error('EmailJS configuration is incomplete.');
+        }
+
+        const formattedMessage = [
+          `Company: ${payload.company || 'Not provided'}`,
+          `AI use: ${payload.aiUse || 'Not provided'}`
+        ].join('\n');
+
         const response = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
           method: 'POST',
           headers: {
@@ -110,7 +114,7 @@
               from_name: payload.name,
               from_email: payload.email,
               reply_to: payload.reply_to,
-              message: payload.message,
+              message: formattedMessage,
               to_email: toEmail,
               routing_email: fromEmail
             }
@@ -125,7 +129,16 @@
         setFeedback('✅ Message sent successfully — we’ll reply within one business day.', 'success');
       } catch (error) {
         console.error(error);
-        setFeedback('⚠️ Something went wrong. Please try again.', 'error');
+        if (toEmail) {
+          const subject = encodeURIComponent('Pilot audit request');
+          const body = encodeURIComponent(
+            `Name: ${payload.name}\nCompany: ${payload.company}\nEmail: ${payload.email}\nAI use: ${payload.aiUse}`
+          );
+          window.location.href = `mailto:${toEmail}?subject=${subject}&body=${body}`;
+          setFeedback('✅ Mail draft prepared — send to complete your request.', 'success');
+        } else {
+          setFeedback('⚠️ Something went wrong. Please try again.', 'error');
+        }
       } finally {
         delete form.dataset.submitting;
         if (submitButton) {
