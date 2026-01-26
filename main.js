@@ -14,7 +14,7 @@
 
     initReveal(prefersReducedMotion);
     initAnchors();
-    initContactForm();
+    initMobileNav();
   });
 
   function initAnchors() {
@@ -34,120 +34,39 @@
     });
   }
 
-  function initContactForm() {
-    const form = document.getElementById('contact-form');
-    if (!form) return;
+  function initMobileNav() {
+    const toggle = document.querySelector('.nav-toggle');
+    const panel = document.getElementById('mobile-menu');
+    if (!toggle || !panel) return;
 
-    const feedback = form.querySelector('.contact-feedback');
-    const submitButton = form.querySelector('button[type="submit"]');
-    const honeypot = form.querySelector('input[name="website"]');
-    const serviceId = form.dataset.emailjsService || '';
-    const templateId = form.dataset.emailjsTemplate || '';
-    const publicKey = form.dataset.emailjsPublicKey || '';
-    const toEmail = form.dataset.emailjsToEmail || '';
-    const fromEmail = form.dataset.emailjsFromEmail || '';
+    const panelLinks = panel.querySelectorAll('a');
 
-    function setFeedback(message, state) {
-      if (!feedback) return;
-      feedback.textContent = message;
-      feedback.classList.remove('contact-feedback--success', 'contact-feedback--error');
-      if (state) {
-        feedback.classList.add(`contact-feedback--${state}`);
+    const setExpanded = (isExpanded) => {
+      toggle.setAttribute('aria-expanded', String(isExpanded));
+      toggle.setAttribute('aria-label', isExpanded ? 'Close menu' : 'Open menu');
+      if (isExpanded) {
+        panel.removeAttribute('hidden');
+      } else {
+        panel.setAttribute('hidden', '');
       }
-    }
+    };
 
-    form.addEventListener('submit', async (event) => {
-      event.preventDefault();
+    toggle.addEventListener('click', () => {
+      const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
+      setExpanded(!isExpanded);
+    });
 
-      if (typeof form.checkValidity === 'function' && !form.checkValidity()) {
-        form.reportValidity();
-        return;
-      }
+    panelLinks.forEach((link) => {
+      link.addEventListener('click', () => setExpanded(false));
+    });
 
-      if (form.dataset.submitting === 'true') {
-        return;
-      }
-
-      if (honeypot && honeypot.value.trim().length > 0) {
-        setFeedback('Submission rejected.', 'error');
-        return;
-      }
-
-      form.dataset.submitting = 'true';
-      if (submitButton) {
-        submitButton.setAttribute('aria-busy', 'true');
-        submitButton.setAttribute('aria-disabled', 'true');
-        submitButton.disabled = true;
-      }
-      setFeedback('', null);
-
-      const formData = new FormData(form);
-      const payload = {
-        name: formData.get('name') ? String(formData.get('name')).trim() : '',
-        company: formData.get('company') ? String(formData.get('company')).trim() : '',
-        email: formData.get('email') ? String(formData.get('email')).trim() : '',
-        message: formData.get('message') ? String(formData.get('message')).trim() : '',
-        reply_to: formData.get('email') ? String(formData.get('email')).trim() : ''
-      };
-
-      try {
-        if (!serviceId || !templateId || !publicKey || !toEmail || !fromEmail) {
-          throw new Error('EmailJS configuration is incomplete.');
-        }
-
-        const formattedMessage = [
-          `Company: ${payload.company || 'Not provided'}`,
-          `Message: ${payload.message || 'Not provided'}`
-        ].join('\n');
-
-        const response = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json'
-          },
-          body: JSON.stringify({
-            service_id: serviceId,
-            template_id: templateId,
-            user_id: publicKey,
-            template_params: {
-              from_name: payload.name,
-              from_email: payload.email,
-              reply_to: payload.reply_to,
-              message: formattedMessage,
-              to_email: toEmail,
-              routing_email: fromEmail
-            }
-          })
-        });
-
-        if (!response.ok) {
-          throw new Error('Request failed');
-        }
-
-        form.reset();
-        setFeedback('✅ Message sent successfully. We will reply within one business day.', 'success');
-      } catch (error) {
-        console.error(error);
-        if (toEmail) {
-          const subject = encodeURIComponent('Pilot audit request');
-          const body = encodeURIComponent(
-            `Name: ${payload.name}\nCompany: ${payload.company}\nEmail: ${payload.email}\nMessage: ${payload.message}`
-          );
-          window.location.href = `mailto:${toEmail}?subject=${subject}&body=${body}`;
-          setFeedback('✅ Mail draft prepared. Send to complete your request.', 'success');
-        } else {
-          setFeedback('⚠️ Something went wrong. Please try again.', 'error');
-        }
-      } finally {
-        delete form.dataset.submitting;
-        if (submitButton) {
-          submitButton.removeAttribute('aria-busy');
-          submitButton.removeAttribute('aria-disabled');
-          submitButton.disabled = false;
-        }
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        setExpanded(false);
       }
     });
+
+    setExpanded(false);
   }
 
   function initReveal(isReduced) {
@@ -172,11 +91,6 @@
     );
 
     elements.forEach((element) => observer.observe(element));
-
-    const logo = document.querySelector('.aegis-logo');
-    if (logo) {
-      requestAnimationFrame(() => logo.classList.add('visible'));
-    }
   }
 
   function initEnergyRain() {
