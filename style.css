@@ -354,7 +354,7 @@ section {
    Hero
    ============================================= */
 .hero-block {
-  padding-top: clamp(7rem, 16vh, 10rem);
+  padding-top: clamp(4.5rem, 10vh, 7rem);
 }
 
 .hero-grid {
